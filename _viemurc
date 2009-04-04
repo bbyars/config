@@ -1,0 +1,5 @@
+" Colemak remappings; use backspace for left
+noremap h k
+noremap j h
+noremap k j
+

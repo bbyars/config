@@ -563,12 +563,6 @@
 			<PropertyValue name="DefaultEditor&gt;1">properties&gt;1&gt;{FA3CD31E-987B-443A-9B81-186104E8DAC1}&gt;NoGuid</PropertyValue>
 			<PropertyValue name="DefaultEditor&gt;2">vm&gt;1&gt;{C76D83F8-A489-11D0-8195-00A0C91BBEE3}&gt;NoGuid</PropertyValue>
 		</Category>
-		<Category name="Environment_StartPage" Category="{255FE6D3-A0AE-4076-A509-D581B2BE4F9E}" Package="{DA9FB551-C724-11d0-AE1F-00A0C90FFFC3}" RegisteredName="Environment_StartPage" PackageName="Visual Studio Environment Package">
-			<PropertyValue name="MRUCommand1GUID">{00000000-0000-0000-0000-000000000000}</PropertyValue>
-			<PropertyValue name="MRUCommand1ID">0</PropertyValue>
-			<PropertyValue name="MRUCommand2GUID">{00000000-0000-0000-0000-000000000000}</PropertyValue>
-			<PropertyValue name="MRUCommand2ID">0</PropertyValue>
-		</Category>
 		<Category name="Environment_FontsAndColors" Category="{1EDA5DD4-927A-43a7-810E-7FD247D0DA1D}" Package="{DA9FB551-C724-11d0-AE1F-00A0C90FFFC3}" RegisteredName="Environment_FontsAndColors" PackageName="Visual Studio Environment Package">
 			<PropertyValue name="Version">2</PropertyValue>
 			<FontsAndColors Version="2.0">
@@ -983,7 +977,6 @@
 				<ShortcutsScheme/>
 				<UserShortcuts>
 					<RemoveShortcut Command="Edit.SelectCurrentWord" Scope="Global">Ctrl+Shift+W</RemoveShortcut>
-					<Shortcut Command="Edit.SelectCurrentWord" Scope="Text Editor">Ctrl+W</Shortcut>
 					<Shortcut Command="ReSharper_ErrorsView_IgnoreErrors" Scope="ReSharper Errors in Solution Window">Del</Shortcut>
 					<Shortcut Command="ReSharper_ErrorsView_UnignoreErrors" Scope="ReSharper Errors in Solution Window">Ins</Shortcut>
 					<Shortcut Command="ReSharper.ReSharper_RefactorThis" Scope="Text Editor">Ctrl+Shift+R</Shortcut>
@@ -1036,8 +1029,6 @@
 					<Shortcut Command="ReSharper.ReSharper_LocateInSolutionExplorerAction" Scope="Text Editor">Shift+Alt+L</Shortcut>
 					<Shortcut Command="ReSharper.ReSharper_LocateInSolutionExplorerAction" Scope="Global">Shift+Alt+L</Shortcut>
 					<RemoveShortcut Command="Edit.ToggleWordWrap" Scope="Text Editor">Ctrl+E, Ctrl+W</RemoveShortcut>
-					<Shortcut Command="ReSharper.ReSharper_GotoRecentFiles" Scope="Text Editor">Ctrl+E</Shortcut>
-					<Shortcut Command="ReSharper.ReSharper_GotoRecentFiles" Scope="Global">Ctrl+E</Shortcut>
 					<Shortcut Command="ReSharper.ReSharper_GotoRecentEdits" Scope="Text Editor">Ctrl+Shift+Alt+Bkspce</Shortcut>
 					<Shortcut Command="ReSharper.ReSharper_GotoRecentEdits" Scope="Global">Ctrl+Shift+Alt+Bkspce</Shortcut>
 					<Shortcut Command="ReSharper.ReSharper_TypeHierarchy_Browse" Scope="Text Editor">Ctrl+Alt+H</Shortcut>
@@ -1059,14 +1050,11 @@
 					<RemoveShortcut Command="Edit.WordNextExtendColumn" Scope="Text Editor">Ctrl+Shift+Alt+Right Arrow</RemoveShortcut>
 					<Shortcut Command="ReSharper.ReSharper_MoveRight" Scope="Text Editor">Ctrl+Shift+Alt+Right Arrow</Shortcut>
 					<Shortcut Command="ReSharper.ReSharper_ShrinkSelection" Scope="Text Editor">Ctrl+Shift+W</Shortcut>
-					<Shortcut Command="ReSharper.ReSharper_DuplicateText" Scope="Text Editor">Ctrl+D</Shortcut>
 					<Shortcut Command="ReSharper.ReSharper_LineComment" Scope="Text Editor">Ctrl+/</Shortcut>
 					<Shortcut Command="ReSharper.ReSharper_BlockComment" Scope="Text Editor">Ctrl+Shift+/</Shortcut>
 					<Shortcut Command="ReSharper.ReSharper_CleanupCode" Scope="Text Editor">Ctrl+Alt+F</Shortcut>
 					<Shortcut Command="ReSharper.ReSharper_CleanupCode" Scope="Global">Ctrl+Alt+F</Shortcut>
-					<Shortcut Command="ReSharper.ReSharper_QuickDoc" Scope="Text Editor">Ctrl+Q</Shortcut>
 					<RemoveShortcut Command="EditorContextMenus.CodeWindow.RunSelection" Scope="Global">Ctrl+Q</RemoveShortcut>
-					<Shortcut Command="ReSharper.ReSharper_QuickDoc" Scope="Global">Ctrl+Q</Shortcut>
 					<Shortcut Command="ReSharper.ReSharper_PasteMultiple" Scope="Text Editor">Ctrl+Shift+V</Shortcut>
 					<Shortcut Command="ReSharper.ReSharper_GotoType" Scope="Text Editor">Ctrl+N</Shortcut>
 					<RemoveShortcut Command="File.NewFile" Scope="Global">Ctrl+N</RemoveShortcut>
@@ -1086,8 +1074,6 @@
 					<Shortcut Command="ReSharper.ReSharper_GotoTypeDeclaration" Scope="Text Editor">Ctrl+Shift+T</Shortcut>
 					<Shortcut Command="ReSharper.ReSharper_GotoTypeDeclaration" Scope="Global">Ctrl+Shift+T</Shortcut>
 					<RemoveShortcut Command="Edit.MakeLowercase" Scope="Text Editor">Ctrl+U</RemoveShortcut>
-					<Shortcut Command="ReSharper.ReSharper_GotoBase" Scope="Text Editor">Ctrl+U</Shortcut>
-					<Shortcut Command="ReSharper.ReSharper_GotoBase" Scope="Global">Ctrl+U</Shortcut>
 					<Shortcut Command="ReSharper.ReSharper_GotoInheritors" Scope="Text Editor">Ctrl+Alt+B</Shortcut>
 					<RemoveShortcut Command="Debug.Breakpoints" Scope="Global">Ctrl+Alt+B</RemoveShortcut>
 					<Shortcut Command="ReSharper.ReSharper_GotoInheritors" Scope="Global">Ctrl+Alt+B</Shortcut>
@@ -1138,6 +1124,44 @@
 					<Shortcut Command="ReSharper.UnitTest_ContextProfile" Scope="Global">Ctrl+Shift+Alt+0</Shortcut>
 					<Shortcut Command="ReSharper.UnitTest_ContextRun" Scope="Global">Ctrl+0</Shortcut>
 					<Shortcut Command="ReSharper.UnitTest_RunSolution" Scope="Global">Ctrl+Shift+0</Shortcut>
+					<RemoveShortcut Command="Edit.Redo" Scope="Global">Ctrl+Y</RemoveShortcut>
+					<RemoveShortcut Command="Edit.Redo" Scope="Global">Shift+Alt+Bkspce</RemoveShortcut>
+					<RemoveShortcut Command="Edit.Redo" Scope="Global">Ctrl+Shift+Z</RemoveShortcut>
+					<RemoveShortcut Command="Edit.Find" Scope="Global">Ctrl+F</RemoveShortcut>
+					<RemoveShortcut Command="File.OpenFile" Scope="Global">Ctrl+O</RemoveShortcut>
+					<RemoveShortcut Command="Edit.GotoBrace" Scope="Text Editor">Ctrl+]</RemoveShortcut>
+					<RemoveShortcut Command="Edit.CharTranspose" Scope="Text Editor">Ctrl+T</RemoveShortcut>
+					<RemoveShortcut Command="Edit.SelectCurrentWord" Scope="Text Editor">Ctrl+W</RemoveShortcut>
+					<RemoveShortcut Command="Edit.ViewWhiteSpace" Scope="Text Editor">Ctrl+R, Ctrl+W</RemoveShortcut>
+					<RemoveShortcut Command="Edit.IncrementalSearch" Scope="Text Editor">Ctrl+I</RemoveShortcut>
+					<RemoveShortcut Command="Refactor.Rename" Scope="Global">Ctrl+R, Ctrl+R</RemoveShortcut>
+					<RemoveShortcut Command="Refactor.ExtractMethod" Scope="Global">Ctrl+R, Ctrl+M</RemoveShortcut>
+					<RemoveShortcut Command="Refactor.EncapsulateField" Scope="Global">Ctrl+R, Ctrl+E</RemoveShortcut>
+					<RemoveShortcut Command="Refactor.ExtractInterface" Scope="Global">Ctrl+R, Ctrl+I</RemoveShortcut>
+					<RemoveShortcut Command="Refactor.PromoteLocalVariable" Scope="Global">Ctrl+R, Ctrl+P</RemoveShortcut>
+					<RemoveShortcut Command="Refactor.RemoveParameters" Scope="Global">Ctrl+R, Ctrl+V</RemoveShortcut>
+					<RemoveShortcut Command="Refactor.ReorderParameters" Scope="Global">Ctrl+R, Ctrl+O</RemoveShortcut>
+					<RemoveShortcut Command="ReSharper.ReSharper_GotoRecentFiles" Scope="Text Editor">Ctrl+E</RemoveShortcut>
+					<RemoveShortcut Command="ReSharper.ReSharper_GotoRecentFiles" Scope="Global">Ctrl+E</RemoveShortcut>
+					<RemoveShortcut Command="ReSharper.ReSharper_DuplicateText" Scope="Text Editor">Ctrl+D</RemoveShortcut>
+					<RemoveShortcut Command="ReSharper.ReSharper_QuickDoc" Scope="Text Editor">Ctrl+Q</RemoveShortcut>
+					<RemoveShortcut Command="ReSharper.ReSharper_QuickDoc" Scope="Global">Ctrl+Q</RemoveShortcut>
+					<RemoveShortcut Command="ReSharper.ReSharper_GotoBase" Scope="Text Editor">Ctrl+U</RemoveShortcut>
+					<RemoveShortcut Command="ReSharper.ReSharper_GotoBase" Scope="Global">Ctrl+U</RemoveShortcut>
+					<RemoveShortcut Command="Test.TestResults.RunCheckedTests" Scope="Global">Ctrl+R, F</RemoveShortcut>
+					<RemoveShortcut Command="TestResults.RunAllTestsInTestResults" Scope="Global">Ctrl+R, D</RemoveShortcut>
+					<RemoveShortcut Command="Test.RunTestsInClass" Scope="Global">Ctrl+R, C</RemoveShortcut>
+					<RemoveShortcut Command="Test.DebugTestsInClass" Scope="Global">Ctrl+R, Ctrl+C</RemoveShortcut>
+					<RemoveShortcut Command="Test.RunTestsInNamespace" Scope="Global">Ctrl+R, N</RemoveShortcut>
+					<RemoveShortcut Command="Test.DebugTestsInNamespace" Scope="Global">Ctrl+R, Ctrl+N</RemoveShortcut>
+					<RemoveShortcut Command="Test.RunTestsInCurrentContext" Scope="Global">Ctrl+R, T</RemoveShortcut>
+					<RemoveShortcut Command="Test.RunAllTestsInSolution" Scope="Global">Ctrl+R, A</RemoveShortcut>
+					<RemoveShortcut Command="Test.DebugTestsInCurrentContext" Scope="Global">Ctrl+R, Ctrl+T</RemoveShortcut>
+					<RemoveShortcut Command="Test.DebugAllTestsInSolution" Scope="Global">Ctrl+R, Ctrl+A</RemoveShortcut>
+					<RemoveShortcut Command="TestResults.DebugCheckedTests" Scope="Global">Ctrl+R, Ctrl+F</RemoveShortcut>
+					<RemoveShortcut Command="TestResults.DebugAllTestsInTestResults" Scope="Global">Ctrl+R, Ctrl+D</RemoveShortcut>
+					<RemoveShortcut Command="Edit.GoToFindCombo" Scope="Global">Ctrl+D</RemoveShortcut>
+					<Shortcut Command="File.NewWebSite" Scope="Global">Shift+Alt+N</Shortcut>
 				</UserShortcuts>
 			</KeyboardShortcuts>
 		</Category>

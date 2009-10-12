@@ -1,28 +1,51 @@
 colorscheme torte
 syntax on
 
+set autoindent
+set nocompatible                " make Vim behave in a more useful way
+set nostartofline               " keep cursor in the same column if possible
+set whichwrap=b,s,[,],<,>,h,l   " allow cursor to wrap between lines
+set virtualedit=block           " allow virtual editing in Visual block mode
+set lazyredraw                  " don't redraw screen while executing macros/mappings
+set scrolloff=1                 " minimal number of screen lines to keep above and below the cursor
+set incsearch                   " enable incremental search
+set backspace=indent,eol,start  " allow backspacing over everything in insert mode
+set winaltkeys=no               " allow mapping of alt (meta) key shortcuts
+set ruler                       " show the cursor position all the time
+set showcmd                     " display incomplete commands
+set hlsearch                    " highlight search patterns
+set ignorecase                  " ignore case
+set smartcase                   " ignore case when the pattern contains lowercase letters only
+set showtabline=2               " always show tab page labels
+set number                      " display line numbers
+set expandtab                   " use soft tabs
+set tabstop=4                   " use 4 spaces for tabs
+set shiftwidth=4                " use 4 spaces for auto-indent
+set hidden                      " you can change buffers without saving
+set listchars=tab:>-,trail:-    " show tabs and trailing
+
 au BufNewFile,BufRead *.as set filetype=actionscript
 
-set nocompatible	" make Vim behave in a more useful way
-set nostartofline	" keep cursor in the same column if possible
-set whichwrap=b,s,[,],<,>,h,l " allow cursor to wrap between lines
-set virtualedit=block	" allow virtual editing in Visual block mode
-set lazyredraw		" don't redraw screen while executing macros/mappings
-set scrolloff=1		" minimal number of screen lines to keep above and below the cursor
-set incsearch		" enable incremental search
-set backspace=indent,eol,start  " allow backspacing over everything in insert mode
-set winaltkeys=no	" allow mapping of alt (meta) key shortcuts
-set ruler		" show the cursor position all the time
-set showcmd		" display incomplete commands
-"set hlsearch		" highlight search patterns
-set ignorecase		" ignore case
-set smartcase		" ignore case when the pattern contains lowercase letters only
-set showtabline=2	" always show tab page labels
-set number		" display line numbers
-set tabstop=4
-set sw=4
-set lines=40
-set columns=130
+au BufNewFile,BufRead *.properties set filetype=xml
+au BufNewFile,BufRead *.targets set filetype=xml
+au BufNewFile,BufRead *.proj set filetype=xml
+au BufNewFile,BufRead *.build set filetype=xml
+
+au BufNewFile,BufRead *.properties set tabstop=2
+au BufNewFile,BufRead *.targets set tabstop=2
+au BufNewFile,BufRead *.proj set tabstop=2
+au BufNewFile,BufRead *.build set tabstop=2
+
+au BufNewFile,BufRead *.properties set shiftwidth=2
+au BufNewFile,BufRead *.targets set shiftwidth=2
+au BufNewFile,BufRead *.proj set shiftwidth=2
+au BufNewFile,BufRead *.build set shiftwidth=2
+
+if has("gui_running")
+    set lines=40
+    set columns=130
+    set guifont=Consolas:h12
+endif
 
 " Colemak remappings; use backspace for left
 noremap h k
@@ -30,7 +53,8 @@ noremap j h
 noremap k j
 
 " NERDTree remappings
-cnoreabbr nt	NERDTree
+cnoreabbr nt    NERDTree
+cnoreabbr ntm   NERDTreeMirror
 
 " opens commands in a new tab
 cnoreabbr <expr> h    (getcmdtype() . getcmdline() != ':h'    ? 'h'    : 'tab help')

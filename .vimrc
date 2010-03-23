@@ -1,6 +1,9 @@
 colorscheme torte
 syntax on
 
+behave mswin
+source $VIMRUNTIME/mswin.vim
+
 set autoindent
 set nocompatible                " make Vim behave in a more useful way
 set nostartofline               " keep cursor in the same column if possible
@@ -44,7 +47,7 @@ au BufNewFile,BufRead *.build set shiftwidth=2
 if has("gui_running")
     set lines=40
     set columns=130
-    set guifont=Consolas:h12
+    set guifont=Consolas:h10
 endif
 
 " Colemak remappings; use backspace for left
@@ -87,4 +90,5 @@ inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 set completeopt=longest,menuone
 inoremap <expr> <C-n> pumvisible() ? "\<lt>C-n>" : "\<lt>C-n>\<lt>C-r>=pumvisible() ? \"\\<lt>Down>\" : \"\"\<lt>CR>"
 inoremap <expr> <M-;> pumvisible() ? "\<lt>C-n>" : "\<lt>C-x>\<lt>C-o>\<lt>C-n>\<lt>C-p>\<lt>C-r>=pumvisible() ? \"\\<lt>Down>\" : \"\"\<lt>CR>"
+
 

@@ -26,6 +26,7 @@ set tabstop=4                   " use 4 spaces for tabs
 set shiftwidth=4                " use 4 spaces for auto-indent
 set hidden                      " you can change buffers without saving
 set listchars=tab:>-,trail:-    " show tabs and trailing
+set nowrap
 
 au BufNewFile,BufRead *.as set filetype=actionscript
 

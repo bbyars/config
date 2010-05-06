@@ -50,7 +50,6 @@
 			</ToolsOptionsSubCategory>
 			<ToolsOptionsSubCategory name="Startup" RegisteredName="Startup" PackageName="Visual Studio Environment Package">
 				<PropertyValue name="OnStartUp">4</PropertyValue>
-				<PropertyValue name="StartPageRefreshDownloadedContent">false</PropertyValue>
 				<PropertyValue name="StartPageRSSUrl">http://go.microsoft.com/fwlink/?linkid=84795&amp;clcid=%VSSPV_LCID_HEX%</PropertyValue>
 				<PropertyValue name="StartPageRefreshInterval">60</PropertyValue>
 			</ToolsOptionsSubCategory>
@@ -1284,18 +1283,6 @@
 					<RemoveShortcut Command="Refactor.PromoteLocalVariable" Scope="Global">Ctrl+R, Ctrl+P</RemoveShortcut>
 					<RemoveShortcut Command="Refactor.RemoveParameters" Scope="Global">Ctrl+R, Ctrl+V</RemoveShortcut>
 					<RemoveShortcut Command="Refactor.ReorderParameters" Scope="Global">Ctrl+R, Ctrl+O</RemoveShortcut>
-					<RemoveShortcut Command="Test.TestResults.RunCheckedTests" Scope="Global">Ctrl+R, F</RemoveShortcut>
-					<RemoveShortcut Command="TestResults.RunAllTestsInTestResults" Scope="Global">Ctrl+R, D</RemoveShortcut>
-					<RemoveShortcut Command="Test.RunTestsInClass" Scope="Global">Ctrl+R, C</RemoveShortcut>
-					<RemoveShortcut Command="Test.DebugTestsInClass" Scope="Global">Ctrl+R, Ctrl+C</RemoveShortcut>
-					<RemoveShortcut Command="Test.RunTestsInNamespace" Scope="Global">Ctrl+R, N</RemoveShortcut>
-					<RemoveShortcut Command="Test.DebugTestsInNamespace" Scope="Global">Ctrl+R, Ctrl+N</RemoveShortcut>
-					<RemoveShortcut Command="Test.RunTestsInCurrentContext" Scope="Global">Ctrl+R, T</RemoveShortcut>
-					<RemoveShortcut Command="Test.RunAllTestsInSolution" Scope="Global">Ctrl+R, A</RemoveShortcut>
-					<RemoveShortcut Command="Test.DebugTestsInCurrentContext" Scope="Global">Ctrl+R, Ctrl+T</RemoveShortcut>
-					<RemoveShortcut Command="Test.DebugAllTestsInSolution" Scope="Global">Ctrl+R, Ctrl+A</RemoveShortcut>
-					<RemoveShortcut Command="TestResults.DebugCheckedTests" Scope="Global">Ctrl+R, Ctrl+F</RemoveShortcut>
-					<RemoveShortcut Command="TestResults.DebugAllTestsInTestResults" Scope="Global">Ctrl+R, Ctrl+D</RemoveShortcut>
 					<RemoveShortcut Command="Edit.GoToFindCombo" Scope="Global">Ctrl+D</RemoveShortcut>
 					<RemoveShortcut Command="{5D7E7F65-A63F-46EE-84F1-990B2CAB23F9},6144" Scope="Global">Ctrl+;</RemoveShortcut>
 					<RemoveShortcut Command="Edit.ParameterInfo" Scope="Text Editor">Ctrl+Shift+Space</RemoveShortcut>
@@ -1308,8 +1295,6 @@
 					<RemoveShortcut Command="ReSharper.ReSharper_GotoBase" Scope="Text Editor">Ctrl+U</RemoveShortcut>
 					<RemoveShortcut Command="ReSharper.ReSharper_GotoBase" Scope="Global">Ctrl+U</RemoveShortcut>
 					<RemoveShortcut Command="Help.F1Help" Scope="Global">F1</RemoveShortcut>
-					<RemoveShortcut Command="ReSharper.Generate" Scope="Global">F11</RemoveShortcut>
-					<Shortcut Command="ReSharper.UnitTest_ContextProfile" Scope="Global">Ctrl+Shift+Alt+0</Shortcut>
 					<Shortcut Command="ReSharper_ForceCompleteItem" Scope="Text Editor">Ctrl+Enter</Shortcut>
 					<Shortcut Command="ReSharper.ReSharper_RefactorThis" Scope="Text Editor">Ctrl+Shift+R</Shortcut>
 					<Shortcut Command="ReSharper.ReSharper_RefactorThis" Scope="Global">Ctrl+Shift+R</Shortcut>
@@ -1365,8 +1350,6 @@
 					<Shortcut Command="ReSharper.ReSharper_ShrinkSelection" Scope="Text Editor">Ctrl+Shift+W</Shortcut>
 					<Shortcut Command="ReSharper.ReSharper_LineComment" Scope="Text Editor">Ctrl+/</Shortcut>
 					<Shortcut Command="ReSharper.ReSharper_BlockComment" Scope="Text Editor">Ctrl+Shift+/</Shortcut>
-					<Shortcut Command="ReSharper.ReSharper_CleanupCode" Scope="Text Editor">Ctrl+Alt+F</Shortcut>
-					<Shortcut Command="ReSharper.ReSharper_CleanupCode" Scope="Global">Ctrl+Alt+F</Shortcut>
 					<Shortcut Command="ReSharper.ReSharper_PasteMultiple" Scope="Text Editor">Ctrl+Shift+V</Shortcut>
 					<Shortcut Command="ReSharper.ReSharper_GotoType" Scope="Text Editor">Ctrl+N</Shortcut>
 					<Shortcut Command="ReSharper.ReSharper_GotoType" Scope="Global">Ctrl+N</Shortcut>
@@ -1415,14 +1398,10 @@
 					<Shortcut Command="ReSharper_EnableDaemon" Scope="Global">Ctrl+8</Shortcut>
 					<Shortcut Command="File.NewWebSite" Scope="Global">Shift+Alt+N</Shortcut>
 					<Shortcut Command="Edit.Redo" Scope="Global">Ctrl+Shift+Z</Shortcut>
-					<Shortcut Command="ReSharper.CleanupCode" Scope="Global">F1</Shortcut>
 					<Shortcut Command="Debug.StepInto" Scope="Global">F11</Shortcut>
-					<RemoveShortcut Command="ReSharper.UnitTest_ContextRun" Scope="Global">Ctrl+0</RemoveShortcut>
 					<Shortcut Command="ReSharper.ReSharper_UnitTest_ContextRun" Scope="Global">Ctrl+0</Shortcut>
 					<Shortcut Command="ReSharper.ReSharper_UnitTest_ContextDebug" Scope="Global">Alt+0</Shortcut>
-					<RemoveShortcut Command="ReSharper.UnitTest_ContextDebug" Scope="Global">Ctrl+Alt+0</RemoveShortcut>
-					<RemoveShortcut Command="ReSharper.UnitTest_RunSolution" Scope="Global">Ctrl+Shift+0</RemoveShortcut>
-					<Shortcut Command="ReSharper.ReSharper_UnitTest_RunSolution" Scope="Global">Ctrl+Shift+0</Shortcut>
+					<Shortcut Command="ReSharper.ReSharper_UnitTest_RunSolution" Scope="Global">Ctrl+Alt+0</Shortcut>
 				</UserShortcuts>
 			</KeyboardShortcuts>
 		</Category>

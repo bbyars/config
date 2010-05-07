@@ -1,0 +1,40 @@
+<TemplatesExport family="Live Templates">
+  <Template uid="25a5c3a5-8fb7-447a-a169-361cf5903e0e" shortcut="gs" description="get set" text="{ get; set; }" reformat="True" shortenQualifiedReferences="True">
+    <Context>
+      <CSharpContext context="TypeMember" minimumLanguageVersion="2.0" />
+    </Context>
+    <Categories />
+    <Variables />
+    <CustomProperties />
+  </Template>
+  <Template uid="5df19a43-20d1-4e87-9fe7-2edc162fc6d3" shortcut="pv" description="public virtual" text="public virtual $TYPE$ $METHOD$($PARAMS$)&#xD;&#xA;{&#xD;&#xA;    $END$&#xD;&#xA;}" reformat="True" shortenQualifiedReferences="True">
+    <Context>
+      <CSharpContext context="TypeMember" minimumLanguageVersion="2.0" />
+    </Context>
+    <Categories />
+    <Variables>
+      <Variable name="TYPE" expression="" initialRange="0" />
+      <Variable name="METHOD" expression="" initialRange="0" />
+      <Variable name="PARAMS" expression="" initialRange="0" />
+    </Variables>
+    <CustomProperties />
+  </Template>
+  <Template uid="4fe19850-79de-4f46-a64b-09c7433326b3" shortcut="setup" description="SetUp" text="[SetUp]&#xD;&#xA;public void SetUp()&#xD;&#xA;{&#xD;&#xA;    $END$&#xD;&#xA;}" reformat="True" shortenQualifiedReferences="True">
+    <Context>
+      <CSharpContext context="TypeMember" minimumLanguageVersion="2.0" />
+    </Context>
+    <Categories />
+    <Variables />
+    <CustomProperties />
+  </Template>
+  <Template uid="220012b0-3d75-4ed3-8869-2caa2f1ae459" shortcut="test" description="Test Method" text="[Test]&#xD;&#xA;public void $TEST$()&#xD;&#xA;{&#xD;&#xA;    $END$&#xD;&#xA;}" reformat="True" shortenQualifiedReferences="True">
+    <Context>
+      <CSharpContext context="TypeMember" minimumLanguageVersion="2.0" />
+    </Context>
+    <Categories />
+    <Variables>
+      <Variable name="TEST" expression="" initialRange="0" />
+    </Variables>
+    <CustomProperties />
+  </Template>
+</TemplatesExport>

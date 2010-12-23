@@ -1,9 +1,6 @@
 colorscheme torte
 syntax on
 
-behave mswin
-source $VIMRUNTIME/mswin.vim
-
 set autoindent
 set nocompatible                " make Vim behave in a more useful way
 set nostartofline               " keep cursor in the same column if possible
@@ -27,6 +24,7 @@ set shiftwidth=4                " use 4 spaces for auto-indent
 set hidden                      " you can change buffers without saving
 set listchars=tab:>-,trail:-    " show tabs and trailing
 set nowrap
+set list
 
 au BufNewFile,BufRead *.as set filetype=actionscript
 
@@ -35,11 +33,15 @@ au BufNewFile,BufRead *.targets set filetype=xml
 au BufNewFile,BufRead *.proj set filetype=xml
 au BufNewFile,BufRead *.build set filetype=xml
 
+au BufNewFile,BufRead *.html set tabstop=2
+au BufNewFile,BufRead *.htm set tabstop=2
 au BufNewFile,BufRead *.properties set tabstop=2
 au BufNewFile,BufRead *.targets set tabstop=2
 au BufNewFile,BufRead *.proj set tabstop=2
 au BufNewFile,BufRead *.build set tabstop=2
 
+au BufNewFile,BufRead *.htm set shiftwidth=2
+au BufNewFile,BufRead *.html set shiftwidth=2
 au BufNewFile,BufRead *.properties set shiftwidth=2
 au BufNewFile,BufRead *.targets set shiftwidth=2
 au BufNewFile,BufRead *.proj set shiftwidth=2
@@ -48,7 +50,11 @@ au BufNewFile,BufRead *.build set shiftwidth=2
 if has("gui_running")
     set lines=40
     set columns=130
-    set guifont=Consolas:h10
+    set guifont=Consolas:h12
+
+    autocmd VimEnter * NERDTree
+    autocmd VimEnter * wincmd p
+    autocmd BufEnter * NERDTreeMirror
 endif
 
 " Colemak remappings; use backspace for left
@@ -91,5 +97,4 @@ inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 set completeopt=longest,menuone
 inoremap <expr> <C-n> pumvisible() ? "\<lt>C-n>" : "\<lt>C-n>\<lt>C-r>=pumvisible() ? \"\\<lt>Down>\" : \"\"\<lt>CR>"
 inoremap <expr> <M-;> pumvisible() ? "\<lt>C-n>" : "\<lt>C-x>\<lt>C-o>\<lt>C-n>\<lt>C-p>\<lt>C-r>=pumvisible() ? \"\\<lt>Down>\" : \"\"\<lt>CR>"
-
 

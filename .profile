@@ -27,3 +27,5 @@ _gemdocomplete() {
 }
 
 complete -o default -o nospace -F _gemdocomplete gemdoc
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"

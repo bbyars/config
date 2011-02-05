@@ -13,7 +13,9 @@ alias mysql="/opt/local/bin/mysql5"
 alias mysqlstart="sudo /opt/local/bin/mysqld_safe5 &"
 alias mysqlstop="sudo /opt/local/bin/mysqladmin5 -u root -p shutdown"
 alias dirs="ls -al | grep '^d'"
-alias port="/opt/local/bin/port"
+alias wiki="python ~/bin/wikidpad/WikidPad.py > /dev/null &"
+
+alias gs="git status"
 
 export GEMDIR=`gem env gemdir`
 

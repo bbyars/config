@@ -16,6 +16,9 @@ alias dirs="ls -al | grep '^d'"
 alias wiki="python ~/bin/wikidpad/WikidPad.py > /dev/null &"
 
 alias gs="git status"
+alias gc="git commit -a"
+alias pull="git pull"
+alias push="git push origin master"
 
 export GEMDIR=`gem env gemdir`
 

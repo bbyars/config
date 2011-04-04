@@ -1,3 +1,6 @@
+" pieced together from various sources, including:
+" vimcasts.org
+
 colorscheme torte
 syntax on
 
@@ -21,31 +24,46 @@ set number                      " display line numbers
 set expandtab                   " use soft tabs
 set tabstop=4                   " use 4 spaces for tabs
 set shiftwidth=4                " use 4 spaces for auto-indent
+set softtabstop=4               " use 4 spaces for backspace
 set hidden                      " you can change buffers without saving
-set listchars=tab:>-,trail:-    " show tabs and trailing
+set listchars=tab:▸\ ,trail:-   " show tabs and trailing
+"set listchars=eol:¬
 set nowrap
 set list
+set autowrite                   " auto-save when switching buffers or shelling command
+set showmatch                   " match brackets
+set sidescroll=20               " show 20 more characters when scolling horizontally
 
-au BufNewFile,BufRead *.as set filetype=actionscript
+"Invisible character colors
+"highlight NonText guifg=#4a4a59
+"highlight SpecialKey guifg=#4a4a59
 
-au BufNewFile,BufRead *.properties set filetype=xml
-au BufNewFile,BufRead *.targets set filetype=xml
-au BufNewFile,BufRead *.proj set filetype=xml
-au BufNewFile,BufRead *.build set filetype=xml
+"set exrc  " allows you to have .exrc files in directories that override this file
+"set wrapmargin=10  " for non-program text
 
-au BufNewFile,BufRead *.html set tabstop=2
-au BufNewFile,BufRead *.htm set tabstop=2
-au BufNewFile,BufRead *.properties set tabstop=2
-au BufNewFile,BufRead *.targets set tabstop=2
-au BufNewFile,BufRead *.proj set tabstop=2
-au BufNewFile,BufRead *.build set tabstop=2
+if has("autocmd")
+  " Enable file type detection
+  filetype on
 
-au BufNewFile,BufRead *.htm set shiftwidth=2
-au BufNewFile,BufRead *.html set shiftwidth=2
-au BufNewFile,BufRead *.properties set shiftwidth=2
-au BufNewFile,BufRead *.targets set shiftwidth=2
-au BufNewFile,BufRead *.proj set shiftwidth=2
-au BufNewFile,BufRead *.build set shiftwidth=2
+  " Syntax of these languages is fussy over tabs Vs spaces
+  autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
+  autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
+  " Customisations based on house-style
+  autocmd FileType html setlocal ts=2 sts=2 sw=2 noexpandtab
+  autocmd FileType xml setlocal ts=2 sts=2 sw=2 noexpandtab
+  autocmd FileType css setlocal ts=2 sts=2 sw=2 noexpandtab
+  autocmd FileType javascript setlocal ts=4 sts=4 sw=4 expandtab
+
+  autocmd BufNewFile,BufRead *.as set filetype=actionscript
+  autocmd BufNewFile,BufRead *.properties,*.targets,*.proj,*.build,*.csproj set filetype=xml
+
+  " depends on copying contrib/vim/syntax/gitcommit.vim from git tarball to ~/.vim/syntax
+  autocmd BufNewFile,BufRead COMMIT_EDITMSG set filetype=gitcommit
+
+  " Auto strip whitespace on save for whitelisted file types
+  autocmd BufWritePre *.py,*.js :call <SID>StripTrailingWhitespaces()
+endif
 
 if has("gui_running")
     set lines=40
@@ -67,10 +85,10 @@ cnoreabbr nt    NERDTree
 cnoreabbr ntm   NERDTreeMirror
 
 " opens commands in a new tab
-cnoreabbr <expr> h    (getcmdtype() . getcmdline() != ':h'    ? 'h'    : 'tab help')
-cnoreabbr <expr> he   (getcmdtype() . getcmdline() != ':he'   ? 'he'   : 'tab help')
-cnoreabbr <expr> hel  (getcmdtype() . getcmdline() != ':hel'  ? 'hel'  : 'tab help')
-cnoreabbr <expr> help (getcmdtype() . getcmdline() != ':help' ? 'help' : 'tab help')
+"cnoreabbr <expr> h    (getcmdtype() . getcmdline() != ':h'    ? 'h'    : 'tab help')
+"cnoreabbr <expr> he   (getcmdtype() . getcmdline() != ':he'   ? 'he'   : 'tab help')
+"cnoreabbr <expr> hel  (getcmdtype() . getcmdline() != ':hel'  ? 'hel'  : 'tab help')
+"cnoreabbr <expr> help (getcmdtype() . getcmdline() != ':help' ? 'help' : 'tab help')
 cnoreabbr <expr> e    (getcmdtype() . getcmdline() != ':e'    ? 'e'    : 'tabedit' )
 cnoreabbr <expr> ed   (getcmdtype() . getcmdline() != ':ed'   ? 'ed'   : 'tabedit' )
 cnoreabbr <expr> edi  (getcmdtype() . getcmdline() != ':edi'  ? 'edi'  : 'tabedit' )
@@ -98,3 +116,15 @@ set completeopt=longest,menuone
 inoremap <expr> <C-n> pumvisible() ? "\<lt>C-n>" : "\<lt>C-n>\<lt>C-r>=pumvisible() ? \"\\<lt>Down>\" : \"\"\<lt>CR>"
 inoremap <expr> <M-;> pumvisible() ? "\<lt>C-n>" : "\<lt>C-x>\<lt>C-o>\<lt>C-n>\<lt>C-p>\<lt>C-r>=pumvisible() ? \"\\<lt>Down>\" : \"\"\<lt>CR>"
 
+" Strip whitespaces without changing search history or cursor position
+function! <SID>StripTrailingWhitespaces()
+    " Preparation: save last search, and cursor position.
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    " Do the business:
+    %s/\s\+$//e
+    " Clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
+endfunction

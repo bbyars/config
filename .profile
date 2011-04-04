@@ -17,6 +17,7 @@ alias wiki="python ~/bin/wikidpad/WikidPad.py > /dev/null &"
 
 alias gs="git status"
 alias gc="git commit -a"
+alias gd="git diff"
 alias pull="git pull"
 alias push="git push origin master"
 
@@ -34,3 +35,5 @@ _gemdocomplete() {
 complete -o default -o nospace -F _gemdocomplete gemdoc
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
+. ~/git-completion.bash

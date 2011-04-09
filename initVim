@@ -15,17 +15,48 @@ function gitinstall() {
         cd $repo
     fi
 
-    cp doc/* ~/.vim/doc/
-    cp plugin/* ~/.vim/plugin
+    for dir in `ls`; do
+        if [ -d $dir ]; then
+            mkvimdir $dir
+            cp -rf $dir/* ~/.vim/$dir/
+        fi
+    done
     popd > /dev/null 2>&1
 }
 
 # Make sure directories exist
-for dir in backup repos doc plugin
-do
-    mkvimdir $dir
-done
+mkvimdir backup
+mkvimdir repos
 
 # Install base plugins
 gitinstall git://github.com/tpope/vim-surround.git
 gitinstall git://github.com/wycats/nerdtree.git
+gitinstall git://github.com/vim-scripts/taglist.vim.git
+gitinstall git://github.com/scrooloose/syntastic.git
+gitinstall git://github.com/mileszs/ack.vim.git
+gitinstall git://github.com/tpope/vim-fugitive.git
+gitinstall git://github.com/tpope/vim-git.git
+gitinstall git://github.com/michaeljsmith/vim-indent-object.git
+gitinstall git://github.com/pangloss/vim-javascript.git
+gitinstall git://github.com/hallettj/jslint.vim.git
+gitinstall git://github.com/robgleeson/vim-markdown-preview.git
+gitinstall git://github.com/ddollar/nerdcommenter.git
+gitinstall git://github.com/ervandew/supertab.git
+gitinstall git://github.com/tpope/vim-cucumber.git
+gitinstall git://github.com/timcharper/textile.vim.git
+gitinstall git://github.com/tpope/vim-rails.git
+gitinstall git://github.com/taq/vim-rspec.git
+gitinstall git://github.com/vim-scripts/ZoomWin.git
+gitinstall git://github.com/msanders/snipmate.vim.git
+gitinstall git://github.com/tpope/vim-markdown.git
+gitinstall git://github.com/tsaleh/vim-align.git
+gitinstall git://github.com/tpope/vim-unimpaired.git
+gitinstall git://github.com/tpope/vim-endwise.git
+gitinstall git://github.com/kchmck/vim-coffee-script.git
+gitinstall git://github.com/ajf/puppet-vim.git
+gitinstall git://github.com/bdd/vim-scala.git
+
+# Add command-t https://wincent.com/products/command-t
+
+vim -e -s <<-EOF\n:helptags ~/.vim/doc\n:quit\nEOF
+

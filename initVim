@@ -1,0 +1,31 @@
+#! /bin/sh
+
+function mkvimdir() { [ -d ~/.vim/$1 ] || mkdir ~/.vim/$1; }
+
+function gitinstall() {
+    repo=`basename $1 .git`
+    if [ -d ~/.vim/repos/$repo ]; then
+        echo "Updating $repo..."
+        pushd ~/.vim/repos/$repo > /dev/null 2>&1
+        git pull
+    else
+        echo "Installing $repo..."
+        pushd ~/.vim/repos > /dev/null 2>&1
+        git clone $1 > /dev/null 2>&1
+        cd $repo
+    fi
+
+    cp doc/* ~/.vim/doc/
+    cp plugin/* ~/.vim/plugin
+    popd > /dev/null 2>&1
+}
+
+# Make sure directories exist
+for dir in backup repos doc plugin
+do
+    mkvimdir $dir
+done
+
+# Install base plugins
+gitinstall git://github.com/tpope/vim-surround.git
+gitinstall git://github.com/wycats/nerdtree.git

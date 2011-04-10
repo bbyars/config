@@ -2,7 +2,7 @@
 #
 # Setup or update vim, with all plugins, etc
 # Borrows heavily from https://github.com/carlhuda/janus
-
+#
 function mkvimdir() { [ -d ~/.vim/$1 ] || mkdir ~/.vim/$1; }
 
 function install() {
@@ -18,17 +18,16 @@ function gitinstall() {
     repo=`basename $1 .git`
     if [ -d ~/.vim/repos/$repo ]; then
         echo "Updating $repo..."
-        pushd ~/.vim/repos/$repo > /dev/null
+        cd ~/.vim/repos/$repo
         git pull > /dev/null 2>&1
     else
         echo "Installing $repo..."
-        pushd ~/.vim/repos > /dev/null
+        cd ~/.vim/repos
         git clone $1 > /dev/null 2>&1
         cd $repo
     fi
 
     install
-    popd > /dev/null
 }
 
 function tarinstall() {
@@ -37,19 +36,17 @@ function tarinstall() {
 
     echo "Installing $repo..."
     mkdir ~/.vim/repos/$repo
-    pushd ~/.vim/repos/$repo > /dev/null
+    cd ~/.vim/repos/$repo
     curl -O $1 > /dev/null 2>&1
     tar xzf `basename $1` > /dev/null
     cd $repo
 
     install
-    popd > /dev/null
 }
 
 function fileinstall() {
-    pushd ~/.vim/$2 > /dev/null
+    cd ~/.vim/$2
     curl -O $1 2> /dev/null
-    popd > /dev/null
 }
 
 # Make sure directories exist
@@ -65,6 +62,7 @@ gitinstall git://github.com/hallettj/jslint.vim.git
 gitinstall git://github.com/vim-scripts/matchit.zip.git
 gitinstall git://github.com/ddollar/nerdcommenter.git
 gitinstall git://github.com/wycats/nerdtree.git
+gitinstall git://github.com/vim-scripts/repeat.vim.git
 gitinstall git://github.com/vim-scripts/ruby-matchit.git
 gitinstall git://github.com/vim-scripts/searchfold.vim.git
 gitinstall git://github.com/msanders/snipmate.vim.git
@@ -99,19 +97,18 @@ gitinstall git://github.com/tpope/vim-markdown.git
 gitinstall git://github.com/tpope/vim-rails.git
 gitinstall git://github.com/taq/vim-rspec.git
 gitinstall git://github.com/bdd/vim-scala.git
-fileinstall http://ftp.vim.org/pub/vim/runtime/syntax/git.vim syntax
-fileinstall http://ftp.vim.org/pub/vim/runtime/syntax/gitcommit.vim syntax
-fileinstall http://ftp.vim.org/pub/vim/runtime/syntax/gitconfig.vim syntax
-fileinstall http://ftp.vim.org/pub/vim/runtime/syntax/gitrebase.vim syntax
-fileinstall http://ftp.vim.org/pub/vim/runtime/syntax/gitsendemail.vim syntax
+fileinstall http://ftp.vim.org/pub/vim/runtime/syntax/git.vim           syntax
+fileinstall http://ftp.vim.org/pub/vim/runtime/syntax/gitcommit.vim     syntax
+fileinstall http://ftp.vim.org/pub/vim/runtime/syntax/gitconfig.vim     syntax
+fileinstall http://ftp.vim.org/pub/vim/runtime/syntax/gitrebase.vim     syntax
+fileinstall http://ftp.vim.org/pub/vim/runtime/syntax/gitsendemail.vim  syntax
 
 # Command-T special commands
-pushd ~/.vim/repos/Command-T > /dev/null
+cd ~/.vim/repos/Command-T
 find ruby -name '.gitignore' | xargs rm
 cd ruby/command-t
 ruby extconf.rb > /dev/null
 make clean && make > /dev/null
-popd > /dev/null
 
 vim -e -s <<-EOF\n:helptags ~/.vim/doc\n:quit\nEOF
 

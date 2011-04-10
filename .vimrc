@@ -66,6 +66,7 @@ set foldcolumn=3                " show folding in margin
 if has("autocmd")
     " Enable file type detection
     filetype on
+    filetype plugin on
 
     " Enable intelligent indenting
     " may require set paste before pasting, and set nopaste after?

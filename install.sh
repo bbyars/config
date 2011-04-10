@@ -20,7 +20,7 @@ done
 
 echo
 echo "Downloading git-completion.bash"
-curl https://github.com/git/git/raw/next/contrib/completion/git-completion.bash > ~/git-completion.bash 2>&1 /dev/null
+curl https://github.com/git/git/raw/next/contrib/completion/git-completion.bash > ~/git-completion.bash
 
 echo
 echo "Installing vim scripts"

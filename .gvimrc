@@ -62,7 +62,7 @@ endif
 
 " ConqueTerm wrapper
 function StartTerm()
-    execute 'ConqueTerm ' . $SHELL . ' --login'
+    execute 'ConqueTermSplit ' . $SHELL . ' --login'
     setlocal listchars=tab:\ \ 
 endfunction
 

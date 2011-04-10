@@ -1,6 +1,13 @@
+" Pieced together from various sources, including:
+" * https://github.com/carlhuda/janus/blob/master/gvimrc
 "
-" Mostly grabbed from https://github.com/carlhuda/janus/blob/master/gvimrc
-"
+set lines=40
+set columns=130
+set guifont=Consolas:h12
+
+" Start without the toolbar
+set guioptions-=T
+
 if has("gui_macvim")
     " Fullscreen takes up entire screen
     set fuoptions=maxhorz,maxvert
@@ -63,33 +70,16 @@ if has("gui_macvim")
     imap <Leader>= <Esc> <C-w>=
 endif
 
-set lines=40
-set columns=130
-set guifont=Consolas:h12
-
-autocmd VimEnter * NERDTree
-autocmd VimEnter * wincmd p
-autocmd BufEnter * NERDTreeMirror
-
-" (GUI) Live line reordering (very useful)
-nnoremap <silent> <C-S-Up> :move .-2<CR>|
-nnoremap <silent> <C-S-Down> :move .+1<CR>|
-vnoremap <silent> <C-S-Up> :move '<-2<CR>gv|
-vnoremap <silent> <C-S-Down> :move '>+1<CR>gv|
-inoremap <silent> <C-S-Up> <C-o>:move .-2<CR>|
-inoremap <silent> <C-S-Down> <C-o>:move .+1<CR>|
-
-" Start without the toolbar
-set guioptions-=T
-
-" Default gui color scheme
-color ir_black
-
 " ConqueTerm wrapper
 function StartTerm()
     execute 'ConqueTerm ' . $SHELL . ' --login'
     setlocal listchars=tab:\ \ 
 endfunction
+
+"autocmd VimEnter * NERDTree
+"autocmd VimEnter * wincmd p
+autocmd BufEnter * NERDTreeMirror
+map nt :NERDTreeToggle
 
 " Project Tree
 autocmd VimEnter * call s:CdIfDirectory(expand("<amatch>"))
@@ -215,12 +205,12 @@ endfunction
 
 function Edit(file)
     if exists("b:NERDTreeRoot")
-        wincmd p
+    wincmd p
     endif
 
     execute "e " . fnameescape(a:file)
 
-    ruby << RUBY
+ruby << RUBY
     destination = File.expand_path(VIM.evaluate(%{system("dirname " . shellescape(a:file, 1))}))
     pwd         = File.expand_path(Dir.pwd)
     home        = pwd == File.expand_path("~")
@@ -228,7 +218,7 @@ function Edit(file)
     if home || Regexp.new("^" + Regexp.escape(pwd)) !~ destination
         VIM.command(%{call ChangeDirectory(fnamemodify(a:file, ":h"), 0)})
     end
-    RUBY
+RUBY
 endfunction
 
 " Define the NERDTree-aware aliases
@@ -238,7 +228,3 @@ call s:DefineCommand("rm", "Remove")
 call s:DefineCommand("e", "Edit")
 call s:DefineCommand("mkdir", "Mkdir")
 
-" Include user's local vim config
-if filereadable(expand("~/.gvimrc.local"))
-    source ~/.gvimrc.local
-endif

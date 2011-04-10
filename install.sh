@@ -7,7 +7,7 @@ function backup() {
 
 echo "Symlinking dot-files to this directory"
 echo "Existing dot-files will be moved to ~/.backup"
-for file in .gemrc .gitconfig .gitk .gvimrc .inputrc .irbrc .profile .vimrc; do
+for file in .gemrc .gitconfig .gitk .gvimrc .inputrc .irbrc .profile .vimrc .vimrc-colemak .vimrc-qwerty; do
     [ -f ~/$file ] && backup $file
     [ -L ~/$file ] && rm ~/$file
     ln -s `pwd`/$file ~/$file

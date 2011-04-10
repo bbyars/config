@@ -1,0 +1,47 @@
+" A script to restore qwerty settings if .vimrc-colemak has been sourced
+"
+" Reset basic navigation
+noremap h h
+noremap j j
+noremap k k
+
+" Turbo navigation mode
+" Modified to work with counts, see :help complex-repeat
+nnoremap <silent> J @='5j'<CR>|xnoremap <silent> N @='5j'<CR>|onoremap J 5j|
+nnoremap <silent> H @='5h'<CR>|xnoremap <silent> U @='5h'<CR>|onoremap H 5h|
+nnoremap <silent> K @='5k'<CR>|xnoremap <silent> E @='5k'<CR>|onoremap K 5k|
+nnoremap <silent> L @='5l'<CR>|xnoremap <silent> I @='5l'<CR>|onoremap L 5l|
+inoremap <M-J> <C-o>5j|cnoremap <M-J> <Left><Left><Left><Left><Left>|
+inoremap <M-H> <C-o>5h|cnoremap <M-H> <Up><Up><Up><Up><Up>|
+inoremap <M-K> <C-o>5k|cnoremap <M-K> <Down><Down><Down><Down><Down>|
+inoremap <M-L> <C-o>5l|cnoremap <M-L> <Right><Right><Right><Right><Right>|
+
+" Use the command key with navigation keys to move through displayed lines
+" The default navigation is only for numbered lines, which can be disorienting with line wrapping
+vmap <D-j> gj
+vmap <D-k> gk
+vmap <D-4> g$
+vmap <D-6> g^
+vmap <D-0> g^
+nmap <D-j> gj
+nmap <D-k> gk
+nmap <D-4> g$
+nmap <D-6> g^
+nmap <D-0> g^
+
+" Reset window navigation
+noremap <C-w><C-h> <C-w><C-h>
+noremap <C-W><C-H> <C-W><C-H>
+noremap <C-w><C-k> <C-w><C-k>
+noremap <C-W><C-K> <C-W><C-K>
+noremap <C-w><C-j> <C-w><C-j>
+noremap <C-W><C-J> <C-W><C-J>
+
+" Reset horizontal scroll options
+noremap zh zh
+noremap zH zH
+
+" Reset fold options
+noremap zj zj
+noremap zk zk
+

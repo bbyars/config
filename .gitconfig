@@ -5,3 +5,18 @@
 	diff = auto
 	status = auto
 	branch = auto
+	ui = auto
+[core]
+	whitespace = trailing-space,space-before-tab
+	excludesfile = ~/.gitignore
+[diff]
+	renames = copies
+	mnemonicprefix = true
+[branch]
+	autosetupmerge = true
+[rerere]
+	enabled = true
+[push]
+	default = tracking
+[merge]
+	stat = true

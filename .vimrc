@@ -68,9 +68,9 @@ if has("autocmd")
     autocmd BufNewFile,BufRead *.as set filetype=actionscript
     autocmd BufNewFile,BufRead *.properties,*.targets,*.proj,*.build,*.csproj set filetype=xml
 
-    autocmd BufNewFile,BufRead *.git/COMMIT_EDITMSG    setf gitcommit
-    autocmd BufNewFile,BufRead *.git/config,.gitconfig setf gitconfig
-    autocmd BufNewFile,BufRead git-rebase-todo         setf gitrebase
+    autocmd BufNewFile,BufRead *.git/COMMIT_EDITMSG     setf gitcommit
+    autocmd BufNewFile,BufRead *.git/config,.gitconfig  setf gitconfig
+    autocmd BufNewFile,BufRead git-rebase-todo          setf gitrebase
     autocmd BufNewFile,BufRead .msg.[0-9]*
         \ if getline(1) =~ '^From.*# This line is ignored.$' |
         \   setf gitsendemail |

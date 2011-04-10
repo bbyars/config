@@ -15,12 +15,6 @@ alias mysqlstop="sudo /opt/local/bin/mysqladmin5 -u root -p shutdown"
 alias dirs="ls -al | grep '^d'"
 alias wiki="python ~/bin/wikidpad/WikidPad.py > /dev/null &"
 
-alias gs="git status"
-alias gc="git commit -a"
-alias gd="git diff"
-alias pull="git pull"
-alias push="git push origin master"
-
 export GEMDIR=`gem env gemdir`
 
 gemdoc() {
@@ -35,5 +29,13 @@ _gemdocomplete() {
 complete -o default -o nospace -F _gemdocomplete gemdoc
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
+# git commands
+alias g="git"
+alias gs="git status"
+alias gc="git commit -a"
+alias gd="git diff"
+alias pull="git pull"
+alias push="git push origin master"
 
 . ~/git-completion.bash

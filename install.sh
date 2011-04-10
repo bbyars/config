@@ -13,7 +13,7 @@ function backup() {
 
 echo "Symlinking dot-files to this directory"
 echo "Existing dot-files will be moved to ~/.backup"
-for file in `find . -maxdepth 1 -type f -iname ".*" | xargs basename`; do
+for file in `find . -maxdepth 1 -type f \( -name ".*" -a \! -name ".gitignore" \) | xargs basename`; do
     [ -e ~/$file ] && backup $file
     ln -s `pwd`/$file ~/$file
 done

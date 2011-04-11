@@ -63,6 +63,59 @@ set backupdir=~/.vim/backup
 set foldenable                  " allow folding in syntax foldmethod
 set foldcolumn=3                " show folding in margin
 
+" Status Bar
+set laststatus=2                " always show status bar
+
+" Without setting this, ZoomWin restores windows in a way that causes
+" equalalways behavior to be triggered the next time CommandT is used.
+" This is likely a bludgeon to solve some other issue, but it works
+set noequalalways
+
+" NERDTree configuration
+let NERDTreeIgnore=['\.rbc$', '\~$']
+map <Leader>n :NERDTreeToggle<CR>
+
+" Command-T configuration
+let g:CommandTMaxHeight=20
+
+" ZoomWin configuration
+map <Leader><Leader> :ZoomWin<CR>
+
+" CTags
+map <Leader>rt :!ctags --extra=+f -R *<CR><CR>
+map <C-\> :tnext<CR>
+
+" Unimpaired configuration
+" Bubble single lines
+nmap <C-Up> [e
+nmap <C-Down> ]e
+" Bubble multiple lines
+vmap <C-Up> [egv
+vmap <C-Down> ]egv
+
+" Enable syntastic syntax checking
+let g:syntastic_enable_signs=1
+let g:syntastic_quiet_warnings=1
+
+" gist-vim defaults
+if has("mac")
+    let g:gist_clip_command = 'pbcopy'
+elseif has("unix")
+    let g:gist_clip_command = 'xclip -selection clipboard'
+endif
+let g:gist_detect_filetype = 1
+let g:gist_open_browser_after_post = 1
+
+" Use modeline overrides
+set modeline
+set modelines=10
+
+" MacVIM shift+arrow-keys behavior (required in .vimrc)
+let macvim_hig_shift_movement = 1
+
+" % to bounce from do to end etc.
+runtime! macros/matchit.vim
+
 if has("autocmd")
     " Enable file type detection
     filetype on
@@ -75,6 +128,8 @@ if has("autocmd")
 
     autocmd BufNewFile,BufRead *.as set filetype=actionscript
     autocmd BufNewFile,BufRead *.properties,*.targets,*.proj,*.build,*.csproj set filetype=xml
+    autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru} set filetype=ruby
+    "autocmd BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn} call s:setupMarkup()
 
     " Syntax of these languages is fussy over tabs Vs spaces
     autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
@@ -85,6 +140,10 @@ if has("autocmd")
     autocmd FileType xml setlocal ts=2 sts=2 sw=2 noexpandtab
     autocmd FileType css setlocal ts=2 sts=2 sw=2 noexpandtab
     autocmd FileType javascript setlocal ts=4 sts=4 sw=4 expandtab
+    autocmd FileType python setlocal ts=4 sts=4 sw=4 expandtab
+    autocmd FileType ruby setlocal ts=2 sts=2 sw=2 expandtab
+
+    autocmd BufRead,BufNewFile *.txt setlocal wrap linebreak nolist
 
     " git syntax
     autocmd BufNewFile,BufRead *.git/COMMIT_EDITMSG     setf gitcommit

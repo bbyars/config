@@ -16,14 +16,14 @@ noremap j h
 
 " Turbo navigation mode
 " Modified to work with counts, see :help complex-repeat
-nnoremap <silent> J @='5j'<CR>|xnoremap <silent> N @='5j'<CR>|onoremap J 5h|
-nnoremap <silent> H @='5h'<CR>|xnoremap <silent> U @='5h'<CR>|onoremap H 5k|
-nnoremap <silent> K @='5k'<CR>|xnoremap <silent> E @='5k'<CR>|onoremap K 5j|
-nnoremap <silent> L @='5l'<CR>|xnoremap <silent> I @='5l'<CR>|onoremap L 5l|
-inoremap <M-J> <C-o>5j|cnoremap <M-J> <Left><Left><Left><Left><Left>|
-inoremap <M-H> <C-o>5h|cnoremap <M-H> <Up><Up><Up><Up><Up>|
-inoremap <M-K> <C-o>5k|cnoremap <M-K> <Down><Down><Down><Down><Down>|
-inoremap <M-L> <C-o>5l|cnoremap <M-L> <Right><Right><Right><Right><Right>|
+"nnoremap <silent> J @='5j'<CR>|xnoremap <silent> N @='5j'<CR>|onoremap J 5h|
+"nnoremap <silent> H @='5h'<CR>|xnoremap <silent> U @='5h'<CR>|onoremap H 5k|
+"nnoremap <silent> K @='5k'<CR>|xnoremap <silent> E @='5k'<CR>|onoremap K 5j|
+"nnoremap <silent> L @='5l'<CR>|xnoremap <silent> I @='5l'<CR>|onoremap L 5l|
+"inoremap <M-J> <C-o>5j|cnoremap <M-J> <Left><Left><Left><Left><Left>|
+"inoremap <M-H> <C-o>5h|cnoremap <M-H> <Up><Up><Up><Up><Up>|
+"inoremap <M-K> <C-o>5k|cnoremap <M-K> <Down><Down><Down><Down><Down>|
+"inoremap <M-L> <C-o>5l|cnoremap <M-L> <Right><Right><Right><Right><Right>|
 
 " Use the command key with navigation keys to move through displayed lines
 " The default navigation is only for numbered lines, which can be disorienting with line wrapping

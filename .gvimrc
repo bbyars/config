@@ -63,13 +63,11 @@ endif
 " ConqueTerm wrapper
 function StartTerm()
     execute 'ConqueTermSplit ' . $SHELL . ' --login'
-    setlocal listchars=tab:\ \ 
 endfunction
 
 "autocmd VimEnter * NERDTree
 "autocmd VimEnter * wincmd p
 autocmd BufEnter * NERDTreeMirror
-map nt :NERDTreeToggle
 
 " Project Tree
 autocmd VimEnter * call s:CdIfDirectory(expand("<amatch>"))

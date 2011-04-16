@@ -3,11 +3,11 @@
 # Setup or update vim, with all plugins, etc
 # Borrows heavily from https://github.com/carlhuda/janus
 #
-function mkvimdir() { [ -d ~/.vim/$1 ] || mkdir ~/.vim/$1; }
+function mkvimdir() { test -d ~/.vim/$1 || mkdir ~/.vim/$1; }
 
 function install() {
-    for dir in `ls`; do
-        if [ -d $dir ]; then
+    for dir in $(ls); do
+        if test -d $dir; then
             mkvimdir $dir
             cp -rf $dir/ ~/.vim/$dir/
         fi
@@ -15,8 +15,8 @@ function install() {
 }
 
 function gitinstall() {
-    repo=`basename $1 .git`
-    if [ -d ~/.vim/repos/$repo ]; then
+    repo=$(basename $1 .git)
+    if test -d ~/.vim/repos/$repo; then
         echo "Updating $repo..."
         cd ~/.vim/repos/$repo
         git pull > /dev/null 2>&1
@@ -31,14 +31,14 @@ function gitinstall() {
 }
 
 function tarinstall() {
-    repo=`basename $1 .tar.gz`
-    [ -d ~/.vim/repos/$repo ] && rm -rf ~/.vim/repos/$repo
+    repo=$(basename $1 .tar.gz)
+    test -d ~/.vim/repos/$repo && rm -rf ~/.vim/repos/$repo
 
     echo "Installing $repo..."
     mkdir ~/.vim/repos/$repo
     cd ~/.vim/repos/$repo
     curl -O $1 > /dev/null 2>&1
-    tar xzf `basename $1` > /dev/null
+    tar xzf $(basename $1) > /dev/null
     cd $repo
 
     install

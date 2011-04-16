@@ -66,6 +66,9 @@ set foldcolumn=3                " show folding in margin
 " Status Bar
 set laststatus=2                " always show status bar
 
+" Remember more commands and search history
+set history=1000
+
 " Without setting this, ZoomWin restores windows in a way that causes
 " equalalways behavior to be triggered the next time CommandT is used.
 " This is likely a bludgeon to solve some other issue, but it works
@@ -125,6 +128,9 @@ if has("autocmd")
     " may require set paste before pasting, and set nopaste after?
     filetype indent on
     filetype plugin indent on
+
+    " Auto update .vimrc changes
+    autocmd bufwritepost .vimrc source $MYVIMRC
 
     autocmd BufNewFile,BufRead *.as set filetype=actionscript
     autocmd BufNewFile,BufRead *.properties,*.targets,*.proj,*.build,*.csproj set filetype=xml
@@ -204,7 +210,7 @@ endif
 
 " &t_Co = number of colors
 if &t_Co > 2 || has("gui_running")
-    colorscheme torte
+    colorscheme motus
 
     " Enable syntax highlighting
     syntax on
@@ -216,8 +222,9 @@ endif
 
 "if has("gui_running") | source $VIMRUNTIME/mswin.vim | endif
 
-" Opens file relative to current file
 let mapleader=','
+
+" Opens file relative to current file
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
 map <leader>ew :e %%
 map <leader>es :sp %%
@@ -233,11 +240,19 @@ command! -nargs=* Wrap set wrap linebreak nolist
 " Map autocompletion to Ctrl-Space to match IDEs
 :imap <C-Space> <C-P>
 
-" (GUI) Live line reordering (very useful)
-nnoremap <silent> <C-S-Up> :move .-2<CR>|
-nnoremap <silent> <C-S-Down> :move .+1<CR>|
-vnoremap <silent> <C-S-Up> :move '<-2<CR>gv|
-vnoremap <silent> <C-S-Down> :move '>+1<CR>gv|
-inoremap <silent> <C-S-Up> <C-o>:move .-2<CR>|
-inoremap <silent> <C-S-Down> <C-o>:move .+1<CR>|
+" Bubble single lines (using unimpaired.vim)
+nmap <C-Up> [e
+nmap <C-Down> ]e
+" Bubble multiple lines
+vmap <C-Up> [egv
+vmap <C-Down> ]egv
+
+" Show syntax highlighting groups for word under cursor
+nmap <C-S-P> :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
 

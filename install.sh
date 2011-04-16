@@ -8,8 +8,8 @@
 # which will update in place
 #
 function backup() {
-    [ -d ~/.backup ] || mkdir ~/.backup
-    if [ -e ~/.backup/$1 ]; then
+    test -d ~/.backup || mkdir ~/.backup
+    if test -e ~/.backup/$1; then
         # Assumes it was previously backed up, and we've
         # just re-run this script; leave old backup in place
         rm -rf ~/$1
@@ -20,9 +20,9 @@ function backup() {
 
 echo "Symlinking dot-files to this directory"
 echo "Existing dot-files will be moved to ~/.backup"
-for file in `find . -maxdepth 1 -type f \( -name ".*" -a \! -name ".gitignore" \) | xargs basename`; do
-    [ -e ~/$file ] && backup $file
-    ln -s `pwd`/$file ~/$file
+for file in $(ls dotfiles); do
+    test -e ~/.$file -o -L ~/.$file && backup .$file
+    ln -s $(pwd)/dotfiles/$file ~/.$file
 done
 
 echo

@@ -1,57 +1,39 @@
 #! /bin/sh
 #
-# Setup or update vim, with all plugins, etc
+# Clean install vim, with all plugins
 # Borrows heavily from https://github.com/carlhuda/janus
 #
-function mkvimdir() { test -d ~/.vim/$1 || mkdir ~/.vim/$1; }
-
-function install() {
-    for dir in $(ls); do
-        if test -d $dir; then
-            mkvimdir $dir
-            cp -rf $dir/ ~/.vim/$dir/
-        fi
-    done
-}
+STRIP_PATTERN='[-.]*vim-*'
 
 function gitinstall() {
-    repo=$(basename $1 .git)
-    if test -d ~/.vim/repos/$repo; then
-        echo "Updating $repo..."
-        cd ~/.vim/repos/$repo
-        git pull > /dev/null 2>&1
-    else
-        echo "Installing $repo..."
-        cd ~/.vim/repos
-        git clone $1 > /dev/null 2>&1
-        cd $repo
-    fi
-
-    install
+    repo=$(basename $1 .git | sed s/$STRIP_PATTERN//)
+    echo "Installing $repo..."
+    cd ~/.vim/bundle
+    git clone $1 $repo > /dev/null 2>&1
 }
 
 function tarinstall() {
-    repo=$(basename $1 .tar.gz)
-    test -d ~/.vim/repos/$repo && rm -rf ~/.vim/repos/$repo
-
+    repo=$(basename $1 .tar.gz | sed s/$STRIP_PATTERN//)
     echo "Installing $repo..."
-    mkdir ~/.vim/repos/$repo
-    cd ~/.vim/repos/$repo
+    cd ~/.vim/bundle
     curl -O $1 > /dev/null 2>&1
     tar xzf $(basename $1) > /dev/null
-    cd $repo
-
-    install
 }
 
 function fileinstall() {
-    cd ~/.vim/$2
+    test -d ~/.vim/bundle/$2 || mkdir ~/.vim/bundle/$2
+    cd ~/.vim/bundle/$2
     curl -O $1 2> /dev/null
 }
 
-# Make sure directories exist
-mkvimdir backup
-mkvimdir repos
+mkdir ~/.vim/backup
+mkdir ~/.vim/bundle
+
+# Install pathogen
+echo "Installing pathogen..."
+git clone https://github.com/tpope/vim-pathogen.git > /dev/null 2>&1
+mv vim-pathogen/* ~/.vim
+rm -rf vim-pathogen
 
 # Install base plugins
 gitinstall git://github.com/mileszs/ack.vim.git
@@ -97,14 +79,14 @@ gitinstall git://github.com/tpope/vim-markdown.git
 gitinstall git://github.com/tpope/vim-rails.git
 gitinstall git://github.com/taq/vim-rspec.git
 gitinstall git://github.com/bdd/vim-scala.git
-fileinstall http://ftp.vim.org/pub/vim/runtime/syntax/git.vim           syntax
-fileinstall http://ftp.vim.org/pub/vim/runtime/syntax/gitcommit.vim     syntax
-fileinstall http://ftp.vim.org/pub/vim/runtime/syntax/gitconfig.vim     syntax
-fileinstall http://ftp.vim.org/pub/vim/runtime/syntax/gitrebase.vim     syntax
-fileinstall http://ftp.vim.org/pub/vim/runtime/syntax/gitsendemail.vim  syntax
+fileinstall http://ftp.vim.org/pub/vim/runtime/syntax/git.vim           git
+fileinstall http://ftp.vim.org/pub/vim/runtime/syntax/gitcommit.vim     git
+fileinstall http://ftp.vim.org/pub/vim/runtime/syntax/gitconfig.vim     git
+fileinstall http://ftp.vim.org/pub/vim/runtime/syntax/gitrebase.vim     git
+fileinstall http://ftp.vim.org/pub/vim/runtime/syntax/gitsendemail.vim  git
 
 # Command-T special commands
-cd ~/.vim/repos/Command-T
+cd ~/.vim/bundle/Command-T
 find ruby -name '.gitignore' | xargs rm
 cd ruby/command-t
 ruby extconf.rb > /dev/null

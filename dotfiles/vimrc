@@ -4,6 +4,9 @@
 " * The O'Reilly book: http://oreilly.com/catalog/9780596529833
 " * http://colemak.com/pub/vim/colemak.vim
 
+" Add all vimscripts from the ~/.vim/bundle directory to the path
+call pathogen#runtime_append_all_bundles()
+
 set encoding=utf-8
 set nocompatible                " make Vim behave in a more useful way
 set lazyredraw                  " don't redraw screen while executing macros/mappings

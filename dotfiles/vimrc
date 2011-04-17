@@ -9,8 +9,8 @@
 source ~/.vimrc-colemak
 
 " Add all vimscripts from the ~/.vim/bundle directory to the path
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
+silent! call pathogen#runtime_append_all_bundles()
+silent! call pathogen#helptags()
 
 set encoding=utf-8
 set nocompatible                " make Vim behave in a more useful way
@@ -73,6 +73,8 @@ set laststatus=2                " always show status bar
 
 " Remember more commands and search history
 set history=1000
+
+set visualbell                  " Instead of beep
 
 " Without setting this, ZoomWin restores windows in a way that causes
 " equalalways behavior to be triggered the next time CommandT is used.
@@ -190,7 +192,9 @@ if &t_Co > 2 || has("gui_running")
     highlight SpecialKey guifg=#666666
 endif
 
-"if has("gui_running") | source $VIMRUNTIME/mswin.vim | endif
+if has("win32")
+    source $VIMRUNTIME/mswin.vim
+endif
 
 let mapleader=','
 

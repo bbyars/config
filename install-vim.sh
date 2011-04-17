@@ -91,6 +91,12 @@ fileinstall http://ftp.vim.org/pub/vim/runtime/syntax/gitconfig.vim     git
 fileinstall http://ftp.vim.org/pub/vim/runtime/syntax/gitrebase.vim     git
 fileinstall http://ftp.vim.org/pub/vim/runtime/syntax/gitsendemail.vim  git
 
+# Peepopen if it exists
+if test -d /Applications/PeepOpen.app/Contents/Resources/Support/vim-peepopen; then
+    echo "Installing peepopen..."
+    cp -r /Applications/PeepOpen.app/Contents/Resources/Support/vim-peepopen ~/.vim/bundle
+fi
+
 # Command-T special commands
 cd ~/.vim/bundle/Command-T
 find ruby -name '.gitignore' | xargs rm

@@ -4,17 +4,19 @@
 " * The O'Reilly book: http://oreilly.com/catalog/9780596529833
 " * http://colemak.com/pub/vim/colemak.vim
 
+" For colemak keyboard layout; source .vimrc-qwerty to undo
+" Need to do this before loading gundo plugin
+source ~/.vimrc-colemak
+
 " Add all vimscripts from the ~/.vim/bundle directory to the path
 call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
 
 set encoding=utf-8
 set nocompatible                " make Vim behave in a more useful way
 set lazyredraw                  " don't redraw screen while executing macros/mappings
 set winaltkeys=no               " allow mapping of alt (meta) key shortcuts
 set mouse=a                     " allow mouse in terminal version
-
-" For colemak keyboard layout; source .vimrc-qwerty to undo
-source ~/.vimrc-colemak
 
 " Whitespace Settings
 set autoindent                  " maintain indent level on new line
@@ -133,7 +135,10 @@ if has("autocmd")
     filetype plugin indent on
 
     " Auto update .vimrc changes
-    autocmd bufwritepost .vimrc source $MYVIMRC
+    autocmd BufWritePost .vimrc source $MYVIMRC
+    autocmd BufWritePost vimrc source $MYVIMRC
+    autocmd BufWritePost .vimrc-colemak source $MYVIMRC
+    autocmd BufWritePost vimrc-colemak source $MYVIMRC
 
     autocmd BufNewFile,BufRead *.as set filetype=actionscript
     autocmd BufNewFile,BufRead *.properties,*.targets,*.proj,*.build,*.csproj set filetype=xml
@@ -253,9 +258,34 @@ vmap <C-Down> ]egv
 " Show syntax highlighting groups for word under cursor
 nmap <C-S-P> :call <SID>SynStack()<CR>
 function! <SID>SynStack()
-  if !exists("*synstack")
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+    if !exists("*synstack")
+        return
+    endif
+    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
+
+if exists(":Tabularize")
+    nmap <Leader>a= :Tabularize /=<CR>
+    vmap <Leader>a= :Tabularize /=<CR>
+    nmap <Leader>a: :Tabularize /:\zs<CR>
+    vmap <Leader>a: :Tabularize /:\zs<CR>
+    nmap <Leader>a<Space> :Tabularize / <CR>
+    vmap <Leader>a<Space> :Tabularize / <CR>
+
+    " to align on insert mode on pipe character, for writing cucumber-like tables
+    " (would be nice to have a command that triggers this on and off):
+    "inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
+    function! s:align()
+        let p = '^\s*|\s.*\s|\s*$'
+        if getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
+            let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
+            let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
+            Tabularize/|/l1
+            normal! 0
+            call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
+        endif
+    endfunction
+endif
+
+nnoremap <D-u> :GundoToggle<CR>
 

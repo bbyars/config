@@ -45,3 +45,7 @@ noremap zH zH
 noremap zj zj
 noremap zk zk
 
+" Reset gundo navigation keys
+let g:gundo_map_move_older = "j"
+let g:gundo_map_move_newer = "k"
+

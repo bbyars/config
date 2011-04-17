@@ -79,50 +79,12 @@ set history=1000
 " This is likely a bludgeon to solve some other issue, but it works
 set noequalalways
 
-" NERDTree configuration
-let NERDTreeIgnore=['\.rbc$', '\~$']
-map <Leader>n :NERDTreeToggle<CR>
-
-" Command-T configuration
-let g:CommandTMaxHeight=20
-
-" ZoomWin configuration
-map <Leader><Leader> :ZoomWin<CR>
-
-" CTags
-map <Leader>rt :!ctags --extra=+f -R *<CR><CR>
-map <C-\> :tnext<CR>
-
-" Unimpaired configuration
-" Bubble single lines
-nmap <C-Up> [e
-nmap <C-Down> ]e
-" Bubble multiple lines
-vmap <C-Up> [egv
-vmap <C-Down> ]egv
-
-" Enable syntastic syntax checking
-let g:syntastic_enable_signs=1
-let g:syntastic_quiet_warnings=1
-
-" gist-vim defaults
-if has("mac")
-    let g:gist_clip_command = 'pbcopy'
-elseif has("unix")
-    let g:gist_clip_command = 'xclip -selection clipboard'
-endif
-let g:gist_detect_filetype = 1
-let g:gist_open_browser_after_post = 1
-
-" Use modeline overrides
-set modeline
-set modelines=10
+" Turn off modelines (comments that set vim config in files you open)
+set nomodeline
+set modelines=0
 
 " MacVIM shift+arrow-keys behavior (required in .vimrc)
 let macvim_hig_shift_movement = 1
-
-" % to bounce from do to end etc.
-runtime! macros/matchit.vim
 
 if has("autocmd")
     " Enable file type detection
@@ -145,7 +107,7 @@ if has("autocmd")
     autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru} set filetype=ruby
     "autocmd BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn} call s:setupMarkup()
 
-    " Syntax of these languages is fussy over tabs Vs spaces
+    " Syntax of these languages is fussy over tabs vs spaces
     autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
     autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
@@ -194,7 +156,7 @@ if has("autocmd")
 
     " Auto detect filetype for extensionless files
     augroup newFileDetection
-    autocmd CursorMovedI * call <SID>CheckFileType()
+        autocmd CursorMovedI * call <SID>CheckFileType()
     augroup END
     function <SID>CheckFileType()
         if exists("b:countCheck") == 0
@@ -245,16 +207,6 @@ map gh "zyw:exe "h ".@z.""<CR>
 " Wrap -> enable sane soft-wrapping, which doesn't work in conjunction with set list
 command! -nargs=* Wrap set wrap linebreak nolist
 
-" Map autocompletion to Ctrl-Space to match IDEs
-:imap <C-Space> <C-P>
-
-" Bubble single lines (using unimpaired.vim)
-nmap <C-Up> [e
-nmap <C-Down> ]e
-" Bubble multiple lines
-vmap <C-Up> [egv
-vmap <C-Down> ]egv
-
 " Show syntax highlighting groups for word under cursor
 nmap <C-S-P> :call <SID>SynStack()<CR>
 function! <SID>SynStack()
@@ -264,6 +216,9 @@ function! <SID>SynStack()
     echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
 
+""""""""""""""""""""""""
+" Plugin configuration
+"
 if exists(":Tabularize")
     nmap <Leader>a= :Tabularize /=<CR>
     vmap <Leader>a= :Tabularize /=<CR>
@@ -288,4 +243,40 @@ if exists(":Tabularize")
 endif
 
 nnoremap <D-u> :GundoToggle<CR>
+
+" NERDTree configuration
+let NERDTreeIgnore=['\.rbc$', '\~$']
+map <Leader>n :NERDTreeToggle<CR>
+
+" Command-T configuration
+let g:CommandTMaxHeight=20
+
+" ZoomWin configuration
+map <Leader><Leader> :ZoomWin<CR>
+
+" CTags
+map <Leader>rt :!ctags --extra=+f -R *<CR><CR>
+map <C-\> :tnext<CR>
+
+" Enable syntastic syntax checking
+let g:syntastic_enable_signs=1
+let g:syntastic_quiet_warnings=1
+
+" gist-vim defaults
+if has("mac")
+    let g:gist_clip_command = 'pbcopy'
+elseif has("unix")
+    let g:gist_clip_command = 'xclip -selection clipboard'
+endif
+let g:gist_detect_filetype = 1
+let g:gist_open_browser_after_post = 1
+
+" % to bounce from do to end etc.
+runtime! macros/matchit.vim
+
+" Bubble lines (using unimpaired.vim)
+nmap <C-Up> [e
+nmap <C-Down> ]e
+vmap <C-Up> [egv
+vmap <C-Down> ]egv
 

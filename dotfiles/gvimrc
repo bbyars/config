@@ -3,7 +3,6 @@
 "
 "BUGS:
 " * If NERDTree is up, go to other window when switching tabs
-" * ConqueTerm spits out errors
 "
 set lines=40
 set columns=130
@@ -218,4 +217,8 @@ call s:DefineCommand("touch", "Touch")
 call s:DefineCommand("rm", "Remove")
 call s:DefineCommand("e", "Edit")
 call s:DefineCommand("mkdir", "Mkdir")
+
+" I'm not sure why pathogen isn't automatically loading this
+source ~/.vim/bundle/hexHighlight/hexHighlight.vim
+nmap <leader>h :call HexHighlight()<Return>
 

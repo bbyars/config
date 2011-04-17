@@ -23,7 +23,11 @@ function tarinstall() {
 function fileinstall() {
     test -d ~/.vim/bundle/$2 || mkdir ~/.vim/bundle/$2
     cd ~/.vim/bundle/$2
-    curl -O $1 2> /dev/null
+    if test -z $3; then
+        curl -O $1 2> /dev/null
+    else
+        curl -o $3 $1 2> /dev/null
+    fi
 }
 
 mkdir ~/.vim/backup
@@ -39,6 +43,7 @@ rm -rf vim-pathogen
 gitinstall https://github.com/mileszs/ack.vim.git
 gitinstall https://github.com/wincent/Command-T.git
 tarinstall http://conque.googlecode.com/files/conque_2.1.tar.gz
+fileinstall http://www.vim.org/scripts/download_script.php?src_id=12150 hexHighlight hexHighlight.vim
 gitinstall https://github.com/mattn/gist-vim.git
 gitinstall https://github.com/sjl/gundo.vim.git
 gitinstall https://github.com/hallettj/jslint.vim.git

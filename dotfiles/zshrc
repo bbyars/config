@@ -1,0 +1,16 @@
+# Path to your oh-my-zsh configuration.
+export ZSH=$HOME/.oh-my-zsh
+
+# Set to the name theme to load.
+# Look in ~/.oh-my-zsh/themes/
+export ZSH_THEME="robbyrussell"
+
+plugins=(brew gem git osx ruby svn ssh-agent vi-mode)
+
+source $ZSH/oh-my-zsh.sh
+
+export PATH=$PATH:/opt/local/bin:~/Scripts
+export EDITOR=vi
+export MANPATH=$MANPATH:/opt/local/share/man
+export INFOPATH=$INFOPATH:/opt/local/share/info
+

@@ -1,7 +1,5 @@
-# Path to your oh-my-zsh configuration.
 export ZSH=$HOME/.oh-my-zsh
 
-# Set to the name theme to load.
 # Look in ~/.oh-my-zsh/themes/
 export ZSH_THEME="robbyrussell"
 
@@ -13,4 +11,10 @@ export PATH=$PATH:/opt/local/bin:~/Scripts
 export EDITOR=vi
 export MANPATH=$MANPATH:/opt/local/share/man
 export INFOPATH=$INFOPATH:/opt/local/share/info
+
+# Applications completion
+if test "$(uname)" = "Darwin"; then
+   compctl -f -x 'p[2]' -s "`/bin/ls -d1 /Applications/*/*.app /Applications/*.app | sed 's|^.*/\([^/]*\)\.app.*|\\1|;s/ /\\\\ /g'`" -- open
+   alias run='open -a'
+fi
 

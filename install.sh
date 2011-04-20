@@ -18,13 +18,6 @@ function backup() {
     fi
 }
 
-echo "Setting up zsh"
-chsh -s /bin/zsh
-if test -d ~/.oh-my-zsh; then
-    rm -rf ~/.oh-my-zsh
-fi
-git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
-
 echo "Symlinking dot-files to this directory"
 echo "Existing dot-files will be moved to ~/.backup"
 for file in $(ls dotfiles); do
@@ -36,9 +29,12 @@ echo
 echo "Downloading git-completion.bash"
 curl https://github.com/git/git/raw/next/contrib/completion/git-completion.bash > ~/git-completion.bash
 
+./install-apps.sh
+
 echo
 echo "Installing vim scripts"
 backup .vim
 mkdir ~/.vim
 ./install-vim.sh
+
 

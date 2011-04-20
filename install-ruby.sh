@@ -3,4 +3,5 @@
 gem install interactive_editor
 gem install rails
 gem install wirble
+gem install plist
 

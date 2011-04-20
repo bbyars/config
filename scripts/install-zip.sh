@@ -1,13 +1,12 @@
 #! /bin/sh
 
 URL=$1
-FILENAME=$(basename $URL | sed s/%20/\ /)
 
-mkdir install-zip
-cd install-zip
-wget $URL
-unzip "$FILENAME"
-mv -f *.app /Applications
-cd ..
-rm -rf install-zip
+FILENAME=__download.zip
+
+wget -O $FILENAME --no-check-certificate $URL
+unzip $FILENAME
+cp -rf *.app /Applications
+rm -rf *.app
+rm $FILENAME
 

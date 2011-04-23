@@ -2,7 +2,7 @@
 
 URL=$1
 
-FILENAME=__download.zip
+FILENAME=$$.zip
 
 wget -O $FILENAME --no-check-certificate $URL
 unzip $FILENAME

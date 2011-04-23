@@ -2,8 +2,8 @@
 
 URL=$1
 
-FILENAME=__download.dmg
-MOUNTPOINT=__install-dmg__
+FILENAME=$$.dmg
+MOUNTPOINT=__$$__
 
 wget -O $FILENAME --no-check-certificate $URL
 hdiutil attach -mountpoint $MOUNTPOINT $FILENAME

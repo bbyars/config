@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 #
 # Clean install vim, with all plugins
 # Borrows heavily from https://github.com/carlhuda/janus
@@ -32,6 +32,11 @@ function fileinstall() {
 
 mkdir ~/.vim/backup
 mkdir ~/.vim/bundle
+
+# Make sure exuberant-ctags is installed
+if test $(uname) = 'Linux'; then
+    apt-get install exuberant-ctags
+fi
 
 # Install pathogen
 echo "Installing pathogen..."

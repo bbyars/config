@@ -1,11 +1,14 @@
-#! /bin/sh
+#! /bin/bash
 
 echo "Setting up zsh"
+if test $(uname) = 'Linux'; then
+    apt-get install zsh zsh-doc
+fi;
 chsh -s /bin/zsh
 test -d ~/.oh-my-zsh && rm -rf ~/.oh-my-zsh
 git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 
-if test $(uname) -eq 'Darwin'; then
+if test $(uname) = 'Darwin'; then
     echo
     echo "Installing iTerm"
     scripts/install-zip.sh http://downloads.sourceforge.net/iterm/iTerm_0.10.zip > /dev/null 2>&1

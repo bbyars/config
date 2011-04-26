@@ -35,7 +35,7 @@ mkdir ~/.vim/bundle
 
 # Make sure exuberant-ctags is installed
 if test $(uname) = 'Linux'; then
-    apt-get install exuberant-ctags
+    sudo apt-get install exuberant-ctags
 fi
 
 # Install pathogen

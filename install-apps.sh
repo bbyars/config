@@ -2,7 +2,7 @@
 
 echo "Setting up zsh"
 if test $(uname) = 'Linux'; then
-    apt-get install zsh zsh-doc
+    sudo apt-get install zsh zsh-doc
 fi;
 chsh -s /bin/zsh
 test -d ~/.oh-my-zsh && rm -rf ~/.oh-my-zsh

@@ -17,9 +17,9 @@ function backup() {
 }
 
 if test $(uname) = 'Linux'; then
-    apt-get install curl
-    apt-get install ruby
-    apt-get install git-core git-gui git-doc
+    sudo apt-get install curl
+    sudo apt-get install ruby
+    sudo apt-get install git-core git-gui git-doc
 fi
 
 echo "Symlinking dot-files to this directory"

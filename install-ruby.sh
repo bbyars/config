@@ -1,11 +1,11 @@
 #!/bin/bash
 
 if test $(uname) = 'Linux'; then
-    apt-get install rubygems1.8
+    sudo apt-get install rubygems1.8
 fi
 
-gem install interactive_editor
-gem install rails
-gem install wirble
-gem install plist
+sudo gem install interactive_editor
+sudo gem install rails
+sudo gem install wirble
+sudo gem install plist
 

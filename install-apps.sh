@@ -1,6 +1,9 @@
-#!/bin/sh
+#! /bin/bash
 
 echo "Setting up zsh"
+if test $(uname) = 'Linux'; then
+    sudo apt-get install zsh zsh-doc
+fi;
 chsh -s /bin/zsh
 test -d ~/.oh-my-zsh && rm -rf ~/.oh-my-zsh
 git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh

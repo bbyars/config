@@ -5,7 +5,7 @@ chsh -s /bin/zsh
 test -d ~/.oh-my-zsh && rm -rf ~/.oh-my-zsh
 git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 
-if test $(uname) -eq 'Darwin'; then
+if test $(uname) = 'Darwin'; then
     echo
     echo "Installing iTerm2"
     scripts/install-zip.sh http://iterm2.googlecode.com/files/iTerm2-beta1.zip > /dev/null 2>&1

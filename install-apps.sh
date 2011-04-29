@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/sh
 
 echo "Setting up zsh"
 chsh -s /bin/zsh
@@ -7,8 +7,8 @@ git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 
 if test $(uname) -eq 'Darwin'; then
     echo
-    echo "Installing iTerm"
-    scripts/install-zip.sh http://downloads.sourceforge.net/iterm/iTerm_0.10.zip > /dev/null 2>&1
+    echo "Installing iTerm2"
+    scripts/install-zip.sh http://iterm2.googlecode.com/files/iTerm2-beta1.zip > /dev/null 2>&1
 
     echo
     echo "Installing QuickSilver"

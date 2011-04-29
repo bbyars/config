@@ -1,12 +1,10 @@
-#! /bin/sh
+#!/bin/sh
 #
 # Initialize POSIX configuration, symlinking configuration files
-# to this directory.  This script is idempotent, and ensures that
-# nothing is left over from a previous install (e.g. manually installed
-# vimscripts will get cleared out, but should get backed-up first).
-# If you don't want to clear your .vim directory, use install-vim.sh,
-# which will update in place
-#
+# to this directory.  This script is idempotent, but (intentionally)
+# destructive to changes made to directories controlled within this
+# script (e.g. .vim) outside of running this script.
+
 function backup() {
     test -d ~/.backup || mkdir ~/.backup
     if test -e ~/.backup/$1; then

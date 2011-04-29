@@ -3,6 +3,7 @@
 " * https://github.com/carlhuda/janus
 " * The O'Reilly book: http://oreilly.com/catalog/9780596529833
 " * http://colemak.com/pub/vim/colemak.vim
+" * https://github.com/isa/VimFiles
 
 " For colemak keyboard layout; source .vimrc-qwerty to undo
 " Need to do this before loading gundo plugin
@@ -41,12 +42,14 @@ set backspace=indent,eol,start  " allow backspacing over everything in insert mo
 " Cursor Management
 set nostartofline               " keep cursor in the same column when moving lines if possible
 set scrolloff=1                 " minimal number of screen lines to keep above and below the cursor
+set cursorline                  " highlight current line
 
 " Searching
 set incsearch                   " enable incremental search
-set nohlsearch                  " do not highlight search patterns
+set hlsearch                    " highlight search patterns
 set ignorecase                  " ignore case
 set smartcase                   " ignore case when the pattern contains lowercase letters only
+set gdefault                    " make global search/replace the default
 
 " Visual
 set virtualedit=block           " allow selecting a rectangle in visual mode
@@ -68,9 +71,6 @@ set backupdir=~/.vim/backup
 set foldenable                  " allow folding in syntax foldmethod
 set foldcolumn=3                " show folding in margin
 
-" Status Bar
-set laststatus=2                " always show status bar
-
 " Remember more commands and search history
 set history=1000
 
@@ -87,6 +87,13 @@ set modelines=0
 
 " MacVIM shift+arrow-keys behavior (required in .vimrc)
 let macvim_hig_shift_movement = 1
+
+" Space for removing highlights
+nnoremap <silent> <Space> :silent noh<Bar>echo<cr>
+
+" Enable normal regex scheme, not the crazy vim scheme
+nnoremap / /\v
+vnoremap / /\v
 
 if has("autocmd")
     " Enable file type detection
@@ -160,7 +167,7 @@ if has("autocmd")
     augroup newFileDetection
         autocmd CursorMovedI * call <SID>CheckFileType()
     augroup END
-    function <SID>CheckFileType()
+    function! <SID>CheckFileType()
         if exists("b:countCheck") == 0
             let b:countCheck = 0
         endif
@@ -182,7 +189,8 @@ endif
 
 " &t_Co = number of colors
 if &t_Co > 2 || has("gui_running")
-    colorscheme motus
+    "colorscheme motus
+    colorscheme jellybeans
 
     " Enable syntax highlighting
     syntax on
@@ -286,4 +294,34 @@ vmap <C-Down> ]egv
 
 " vimwiki
 let g:vimwiki_list = [{'path': '~/Dropbox/wiki/vim/', 'path_html': '~/Dropbox/wiki/html/', 'auto_export': 1}]
+
+" STATUS BAR
+function! GetCWD()
+    return expand(":pwd")
+endfunction
+
+function! IsHelp()
+    return &buftype=='help'?' (help) ':''
+endfunction
+
+function! GetName()
+    return expand("%:t")==''?'<none>':expand("%:t")
+endfunction
+
+set laststatus=2        " Always show status line
+set statusline=%3*[%1*%{GetName()}%3*]%3*
+set statusline+=%7*%{&modified?'\ (modified)':'\ '}%3*
+set statusline+=%5*%{IsHelp()}%3*
+set statusline+=%6*%{&readonly?'\ (read-only)\ ':'\ '}%3*
+set statusline+=%3*fenc:%4*%{strlen(&fenc)?&fenc:'none'}%*\ \ 
+set statusline+=%3*ff:%4*%{&ff}%*\ \ 
+set statusline+=%3*ft:%4*%{strlen(&ft)?&ft:'<none>'}\ \ 
+set statusline+=%3*tab:%4*%{&ts}
+set statusline+=%3*,%4*%{&sts}
+set statusline+=%3*,%4*%{&sw}
+set statusline+=%3*,%4*%{&et?'et':'noet'}\ \ 
+set statusline+=%<%3*pwd:%4*%{getcwd()}\ \ 
+set statusline+=%=
+set statusline+=%3*col:%4*%c\ \ 
+set statusline+=%3*line:%4*%l/%L
 

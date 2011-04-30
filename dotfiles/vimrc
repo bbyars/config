@@ -190,7 +190,8 @@ endif
 " &t_Co = number of colors
 if &t_Co > 2 || has("gui_running")
     "colorscheme motus
-    colorscheme jellybeans
+    "colorscheme jellybeans
+    colorscheme darkZ
 
     " Enable syntax highlighting
     syntax on
@@ -313,15 +314,16 @@ set statusline=%3*[%1*%{GetName()}%3*]%3*
 set statusline+=%7*%{&modified?'\ (modified)':'\ '}%3*
 set statusline+=%5*%{IsHelp()}%3*
 set statusline+=%6*%{&readonly?'\ (read-only)\ ':'\ '}%3*
-set statusline+=%3*fenc:%4*%{strlen(&fenc)?&fenc:'none'}%*\ \ 
-set statusline+=%3*ff:%4*%{&ff}%*\ \ 
-set statusline+=%3*ft:%4*%{strlen(&ft)?&ft:'<none>'}\ \ 
+set statusline+=%8*%{strlen(&fenc)?&fenc:'none'}%*      " encoding
+set statusline+=%-8*%{&ff}%*\ \                          " file format
+set statusline+=%4*%{strlen(&ft)?&ft:'<none>'}\ \       " file type
 set statusline+=%3*tab:%4*%{&ts}
 set statusline+=%3*,%4*%{&sts}
 set statusline+=%3*,%4*%{&sw}
 set statusline+=%3*,%4*%{&et?'et':'noet'}\ \ 
 set statusline+=%<%3*pwd:%4*%{getcwd()}\ \ 
 set statusline+=%=
-set statusline+=%3*col:%4*%c\ \ 
+set statusline+=%3*buffer:%4*%n\ \ 
+set statusline+=%3*col:%4*%c/%v\ \ 
 set statusline+=%3*line:%4*%l/%L
 

@@ -12,6 +12,8 @@ set guifont=Monaco:h12
 " Start without the toolbar
 set guioptions-=T
 
+colorscheme jellybeans
+
 if has("gui_macvim")
     " Fullscreen takes up entire screen
     set fuoptions=maxhorz,maxvert

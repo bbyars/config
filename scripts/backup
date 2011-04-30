@@ -40,15 +40,12 @@ fi
 while getopts ":cd:m:" option; do
     case $option in
         d)
-            echo SETTING REPO TO $OPTARG
             repo=$OPTARG
             ;;
         c)
-            echo SETTING COMMIT FLAG
             commit=1
             ;;
         m)
-            echo SETTING MESSAGE TO $OPTARG
             commit=1
             message=$OPTARG
             ;;
@@ -59,7 +56,6 @@ while getopts ":cd:m:" option; do
     esac
 done
 
-echo "GETOPTS DONE"
 shift `expr $OPTIND - 1`
 echo "ARGS: $@"
 

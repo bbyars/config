@@ -1,0 +1,22 @@
+#!/bin/bash
+
+function usage() {
+    echo "Usage: $0 ['COMMIT MESSAGE']"
+    echo "Commits any changes to the backup directory given"
+    echo "by BACKUP_DIR (defaults to ~/.backup)."
+    echo "If COMMIT MESSAGE is provided, the commit"
+    echo "is non-interactive; otherwise, the git editor window appears."
+}
+
+if test $# -gt 1; then
+    usage
+    exit 1
+fi
+
+cd ${BACKUP_DIR:-~/.backup}
+
+if test $# -eq 1; then
+    git commit -m "$1"
+else
+    git commit
+fi

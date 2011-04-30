@@ -1,0 +1,54 @@
+#!/bin/bash
+
+function usage() {
+    echo "Usage: $0 FILE1 [FILE2...]"
+    echo "Saves files (which can be symlinks or directories) to a backup directory."
+    echo "The backup directory is a git repository, and running this script"
+    echo "stages the changes but does not commit them."
+    echo "By default, the backup directory is ~/.backup, but this can be changed"
+    echo "by setting the BACKUP_DIR environment variable."
+}
+
+# Validate arguments
+if test $# -eq 0; then
+    usage
+    exit 1
+fi
+
+for file in "$@"; do
+    if test ! -e $file; then
+        echo $file does not exist
+        usage
+        exit 1
+    fi
+done
+
+REPO=${BACKUP_DIR:-~/.backup}
+
+# Ensure repository not taken already
+if test -e $REPO -a ! -d $REPO/.git; then
+    echo $REPO already exists but is not a git repository.
+    echo Set BACKUP_DIR to change the repository directory.
+    exit 2
+fi
+
+# Initialize repository if necessary
+if test ! -d $REPO; then
+    mkdir $REPO
+    git init $REPO
+fi
+
+# Copy files
+for file in "$@"; do
+    # Don't allow a / at the end of a directory name;
+    # otherwise the directory contents get copied instead
+    # of the directory itself
+    file=`echo $file | sed 's:/$::'`
+    cp -R $file $REPO
+done
+
+# Stage files into git index
+cd $REPO
+for file in "$@"; do
+    git add `basename $file`
+done

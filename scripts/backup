@@ -93,7 +93,7 @@ for file in "$@"; do
     # otherwise the directory contents get copied instead
     # of the directory itself
     file=`echo $file | sed 's:/$::'`
-    cp -R $file $repo
+    cp -Rf $file $repo
 done
 
 # Stage files into git index
@@ -104,7 +104,7 @@ done
 
 # Commit if asked to
 if test ! -z $commit; then
-    if test -z $message; then
+    if test -z "$message"; then
         git commit
     else
         git commit -m "$message"

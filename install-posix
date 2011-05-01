@@ -93,6 +93,7 @@ done
 backup ~/scripts
 #backup ~/git-completion.bash;
 backup ~/.vim
+backup ~/.oh-my-zsh
 
 for file in $(ls dotfiles); do
     backup ~/.$file
@@ -109,6 +110,10 @@ mkdir ~/scripts
 linkfiles dotfiles          ~/.
 linkfiles scripts           ~/scripts/
 linkfiles scripts/$platform ~/scripts/
+
+# Change to zsh and use oh-my-zsh
+chsh -s /bin/zsh
+git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 
 #wget -O ~/git-completion.bash --no-check-certificate https://github.com/git/git/raw/next/contrib/completion/git-completion.bash
 

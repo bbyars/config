@@ -1,0 +1,17 @@
+#!/bin/bash
+
+echo
+echo "Installing iTerm2"
+scripts/osx/install-zip.sh http://iterm2.googlecode.com/files/iTerm2-beta1.zip > /dev/null 2>&1
+
+echo
+echo "Installing QuickSilver"
+scripts/osx/install-dmg.sh https://github.com/downloads/quicksilver/Quicksilver/Quicksilver%20B59.dmg > /dev/null 2>&1
+
+echo
+echo "Installing Firefox"
+scripts/osx/install-dmg.sh http://download.mozilla.org/?product=firefox-4.0&os=osx&lang=en-US > /dev/null 2>&1
+
+echo
+echo "Installing Max"
+scripts/osx/install-tarball-app.sh http://files.sbooth.org/Max-0.9.1.tar.bz2

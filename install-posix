@@ -30,6 +30,31 @@ function backup() {
     fi
 }
 
+# Figure out arguments to pass scripts/backup.  We can't simply pass "$@"
+# because, if we commit, we only do it once at the end, but we need the
+# -d option for all individual backup calls.
+while getopts ":cd:m:" option; do
+    case $option in
+        d)
+            # Same as setting -d on command line
+            export BACKUP_DIR=$OPTARG
+            ;;
+        c)
+            commit=1
+            ;;
+        m)
+            commit=1
+            ;;
+        *)
+            echo Invalid command line for backup
+            echo
+            # Trigger usage
+            scripts/backup "$@"
+            exit 1
+            ;;
+    esac
+done
+
 # First backup
 backup ~/scripts
 backup ~/git-completion.bash;
@@ -52,6 +77,6 @@ linkfiles scripts/$platform ~/scripts/
 
 wget -O ~/git-completion.bash --no-check-certificate https://github.com/git/git/raw/next/contrib/completion/git-completion.bash
 
-if test $# -gt 0; then
+if test ! -z $commit; then
     scripts/backup "$@"
 fi

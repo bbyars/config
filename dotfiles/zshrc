@@ -7,8 +7,8 @@ plugins=(brew gem git osx ruby svn ssh-agent vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
-export PATH=$PATH:/opt/local/bin:~/Scripts
-export EDITOR=vi
+export PATH=$PATH:/opt/local/bin:~/scripts
+export EDITOR=vim
 export MANPATH=$MANPATH:/opt/local/share/man
 export INFOPATH=$INFOPATH:/opt/local/share/info
 

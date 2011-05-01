@@ -12,6 +12,8 @@ export EDITOR=vim
 export MANPATH=$MANPATH:/opt/local/share/man
 export INFOPATH=$INFOPATH:/opt/local/share/info
 
+alias ll="ls -Al"
+
 # Applications completion
 if test "$(uname)" = "Darwin"; then
    compctl -f -x 'p[2]' -s "`/bin/ls -d1 /Applications/*/*.app /Applications/*.app | sed 's|^.*/\([^/]*\)\.app.*|\\1|;s/ /\\\\ /g'`" -- open

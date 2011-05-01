@@ -38,4 +38,4 @@ alias gd="git diff"
 alias pull="git pull"
 alias push="git push origin master"
 
-. ~/git-completion.bash
+#. ~/git-completion.bash

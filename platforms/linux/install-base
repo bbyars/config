@@ -1,6 +1,6 @@
 #!/bin/bash
 
 sudo apt-get install curl
-sudo apt-get install ruby
+sudo apt-get install ruby rubygems1.8
 sudo apt-get install git-core git-gui git-doc
 sudo apt-get install zsh zsh-doc

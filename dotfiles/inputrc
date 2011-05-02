@@ -1,7 +1,7 @@
 set bell-style none
 set completion-ignore-case on
 set editing-mode vi
-set	keymap vi
+set keymap vi
 set mark-directories on
 set mark-modified-lines on
 set mark-symlinked-directories on

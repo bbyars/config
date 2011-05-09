@@ -1,0 +1,315 @@
+" Without setting this, ZoomWin restores windows in a way that causes
+" equalalways behavior to be triggered the next time CommandT is used.
+" This is likely a bludgeon to solve some other issue, but it works
+set noequalalways
+
+if exists(":Abolish")
+    :Abolish afterword{,s}                         afterward{}
+    :Abolish anomol{y,ies}                         anomal{}
+    :Abolish {,in}consistan{cy,cies,t,tly}         {}consisten{}
+    :Abolish delimeter{,s}                         delimiter{}
+    :Abolish {,non}existan{ce,t}                   {}existen{}
+    :Abolish despara{te,tely,tion}                 despera{}
+    :Abolish d{e,i}screp{e,a}nc{y,ies}             d{i}screp{a}nc{}
+    :Abolish {les,compar,compari}sion{,s}          {les,compari,compari}son{}
+    :Abolish {,un}nec{ce,ces,e}sar{y,ily}          {}nec{es}sar{}
+    :Abolish persistan{ce,t,tly}                   persisten{}
+    :Abolish {,ir}releven{ce,cy,t,tly}             {}relevan{}
+    :Abolish rec{co,com,o}mend{,s,ed,ing,ation}    rec{om}mend{}
+    :Abolish reproducable                          reproducible
+    :Abolish seperat{e,es,ed,ing,ely,ion,ions,or}  separat{}
+
+    " Abolish -search anomaly - searches for variants
+    "     also :S/anomaly/
+    "
+    " :%S/box{,es}/bag{,s}/g -> substitute all variants
+endif
+
+"if exists(":Ack")
+    map <D-F> :Ack<space>
+"endif
+
+"if exists(":ConqueTerm")
+    map <D-e> :call StartTerm()<CR>
+
+    function! StartTerm()
+        execute 'ConqueTermSplit ' . $SHELL . ' --login'
+    endfunction
+
+    function! SetConqueSyntax(term)
+        " set buffer syntax using the name of the program currently running
+        let syntax_associations = { 'ipython': 'python', 'irb': 'ruby' }
+
+        if has_key(syntax_associations, a:term.program_name)
+            execute 'setlocal syntax=' . syntax_associations[a:term.program_name]
+        else
+            execute 'setlocal syntax=' . a:term.program_name
+        endif
+    endfunction
+
+    call conque_term#register_function('after_startup', 'SetConqueSyntax')
+
+    let g:ConqueTerm_FastMode = 1           " 0 to disable colors, etc
+    let g:ConqueTerm_Color = 1
+    let g:ConqueTerm_SessionSupport = 0
+    let g:ConqueTerm_ReadUnfocused = 1      " continue to update when focus lost
+    let g:ConqueTerm_InsertOnEnter = 0      " start in insert mode
+    let g:ConqueTerm_CloseOnEnd = 0         " keep open after program ends
+    let g:ConqueTerm_Syntax = 'shell'       " set syntax highlighting
+    let g:ConqueTerm_EscKey = '<Esc>'       " 2 ESCs to send one to terminal
+    let g:ConqueTerm_ToggleKey = '<F8>'     " Pause terminal
+    let g:ConqueTerm_CWInsert = 1           " Allow C-W commands in insert mode
+    let g:ConqueTerm_ExecFileKey = '<F11>'  " Execute current file in Conque
+    let g:ConqueTerm_SendFileKey = '<F10>'  " Send entire file to Conque
+    let g:ConqueTerm_SendVisKey = '<F9>'    " Send selected text to Conque
+    let g:ConqueTerm_SendFunctionKeys = 0   " Don't send function keys to terminal
+    let g:ConqueTerm_TERM = 'vt100'         " Maybe try xterm
+    let g:ConqueTerm_PyExe = ''             " Windows only
+"endif
+
+" EasyMotion
+"    Mapping           | Details
+"    ------------------|----------------------------------------------
+"    <Leader>f{char}   | Find {char} to the right. See |f|.
+"    <Leader>F{char}   | Find {char} to the left. See |F|.
+"    <Leader>t{char}   | Till before the {char} to the right. See |t|.
+"    <Leader>T{char}   | Till after the {char} to the left. See |T|.
+"    <Leader>w         | Beginning of word forward. See |w|.
+"    <Leader>b         | Beginning of word backward. See |b|.
+"    <Leader>e         | End of word forward. See |e|.
+"    <Leader>ge        | End of word backward. See |ge| .
+"    <Leader>j         | Line downward. See |j|.
+"    <Leader>k         | Line upward. See |k|.
+
+" Fugitive
+"if exists(":Git")
+"    :Gstatus
+"    :Gedit HEAD, <CR> to jump to current branch, <CR> to jump to top commit
+"        <CR> to explore, C in tree or blob to get back to commit
+"       Also Gsplit and Gvsplit and Gtabedit
+"    :Gdiff -> open up indexed version
+"        do and dp on various hunks to bring files in sync
+"        :Gread to pull in all changes
+"        :w to stage
+"    :Gstatus
+"        - to stage and reset files
+"        p to add/reset --patch them
+"       <C-N> and <C-P> to jump from filename to filename
+"       C to invoke Gcommit
+"       D to Gdiff
+"       ds to Gsdiff
+"       - to stage or unstage
+"       p to stage or unstage on a per hunk basis (--patch)
+"    :Gcommit [args]
+"    :Gblame
+"        <CR> on any line to reopen and reblame file as in that commit
+"        o on any line to inspect that commit in a split
+"    :Ggrep [args] to search work tree or history
+"    :Gmove to rename
+"    :Gremove to delete
+"    :Glog [args] -> load previous revisions of current file into quickfix
+"endif
+
+"if exists(":GundoToggle")
+    nnoremap <D-u> :GundoToggle<CR>
+
+    let g:gundo_width = 45
+    let g:gundo_preview_height = 15
+    let g:gundo_right = 0
+    let g:gundo_preview_bottom = 0
+    let g:gundo_help = 1
+    let g:gundo_disable = 0
+"endif
+
+" Indent Object
+"   Additional text objects with motions like c or d or visual mode, based on
+"   indentation level
+"   ai -> (A)n (I)ndentation level and line above
+"   ii -> (I)nner (I)ndentation
+"   aI -> (A)n (I)ndentation level and line above and line below
+
+"if exists(":JSLintUpdate")
+    let g:JSLintHighlightErrorLine = 1
+"endif
+
+" Markdown Preview
+"   :Mm -> preview in browser
+
+" Matchit
+    " % to bounce from do to end etc.
+    runtime! macros/matchit.vim
+    " % -> cycle forward
+    " g% -> cycle backwards
+    " [% -> go to [count] previous unmatched group, like [{
+    " ]% -> go to [count] next unmatched group, like ]}
+    " a% -> in visual mode, select matching group, like v_a[
+
+"if exists(":NERDCommenterToggle")
+    map <D-/> <plug>NERDCommenterToggle<CR>
+
+    " [count],cc -> comment out
+"endif
+
+"if exists(":NERDTree")
+    map <Leader>n :NERDTreeToggle<CR>
+
+    " Find current file in tree
+    map <Leader>nc :NERDTreeFind<CR>
+
+    let g:NERDChristmasTree = 1               " Add more syntax highlighted
+    let g:NERDTreeAutoCenter = 1              " Center around cursor on scroll
+    let g:NERDTreeAutoCenterThreshold = 3     " sensitivity of auto centering
+    let g:NERDTreeCaseSensitiveSort = 0       " sort ignoring case
+    let g:NERDTreeChDirMode = 0               " don't let NERDTree change cwd
+    let g:NERDTreeHighlightCursorline = 1     " highlight cursor line
+    let g:NERDTreeHijackNetrw = 0             " Allow :edit <dirname> with netrw
+    let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.svn$']
+    let g:NERDTreeQuitOnOpen = 0              " Don't close when opening file
+    let g:NERDTreeShowBookmarks = 0           " Don't show bookmarks
+    let g:NERDTreeShowFiles = 1               " Show files and directories
+    let g:NERDTreeShowHidden = 0              " Don't show hidden files
+    let g:NERDTreeShowLineNumbers = 0         " Don't show line numbers
+    let g:NERDTreeSortOrder = ['\/$', '*']    " Directories first, then files
+    let g:NERDTreeWinPos = 'left'             " Show on left
+    let g:NERDTreeWinSize = 31                " Size of window
+
+    autocmd BufEnter * NERDTreeMirror         " Mirror to other tabs
+    autocmd FocusGained * call s:UpdateNERDTree()
+    autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
+
+    function! s:CloseIfOnlyNerdTreeLeft()
+        if exists("t:NERDTreeBufName")
+            if bufwinnr(t:NERDTreeBufName) != -1
+                if winnr("$") == 1
+                    q
+                endif
+            endif
+        endif
+    endfunction
+
+    function! s:UpdateNERDTree(...)
+        let stay = 0
+
+        if(exists("a:1"))
+            let stay = a:1
+        end
+
+        if exists("t:NERDTreeBufName")
+            let nr = bufwinnr(t:NERDTreeBufName)
+            if nr != -1
+                exe nr . "wincmd w"
+                exe substitute(mapcheck("R"), "<CR>", "", "")
+                if !stay
+                    wincmd p
+                end
+            endif
+        endif
+    endfunction
+"endif
+
+" SearchFold
+"   ,z -> fold away lines not matching last search
+"   ,iz -> inverse fold
+"   ,Z -> restore previous fold settings
+
+" ScmDiff
+"   ,d -> toggle diff
+
+" Surround
+"   * denotes cursor position
+"   ds -> delete surroundings ("Hello *world!", ds" -> "Hello, world!)
+"   cs -> change surrounding ("[123+4*56]/2, cs]) -> (123+456)/2)
+"   ys -> takes motion or text object as first object, and wraps it using second argument
+"       Hello w*orld!, ysiw) -> Hello (world)!
+"   yss -> operates on current line
+"       Hellow w*orld!, yssB -> {Hellow worlds!}
+"   s -> surround in visual mode
+
+"if exists(":SyntasticEnable")
+    let g:syntastic_enable_signs=1          " Enable syntax checking
+    let g:syntastic_quiet_warnings=0        " Show warnings as well
+    let g:syntastic_auto_jump=1             " Jump to first error on save or open
+    let g:syntastic_auto_loc_list=1         " Auto open/close location-list
+
+    "    set statusline+=%#warningmsg#
+    "    set statusline+=%{SyntasticStatuslineFlag()}
+    "    set statusline+=%*
+    " :Errors -> show errors for current buffer
+"endif
+
+"if exists(":Tabularize")
+    nmap <Leader>a= :Tabularize /=<CR>
+    vmap <Leader>a= :Tabularize /=<CR>
+    nmap <Leader>a: :Tabularize /:\zs<CR>
+    vmap <Leader>a: :Tabularize /:\zs<CR>
+    nmap <Leader>a<Space> :Tabularize / <CR>
+    vmap <Leader>a<Space> :Tabularize / <CR>
+
+    " to align on insert mode on pipe character, for writing cucumber-like tables
+    " (would be nice to have a command that triggers this on and off):
+    "inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
+    function! s:align()
+        let p = '^\s*|\s.*\s|\s*$'
+        if getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
+            let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
+            let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
+            Tabularize/|/l1
+            normal! 0
+            call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
+        endif
+    endfunction
+"endif
+
+"if exists(":TlistToggle")
+    let g:Tlist_GainFocus_On_ToggleOpen=1       " set focus to tag window when TlistToggle called
+    let g:Tlist_Auto_Open=0                     " don't open at startup
+    let g:Tlist_Close_On_Select=1               " close window when tag selected
+    let g:Tlist_Exit_OnlyWindow=1               " close vim when tag window only
+    let g:Tlist_Process_File_Always=1           " process even when taglist window closed
+    let g:Tlist_Auto_Update=1                   " Auto update when file changes
+    let g:Tlist_File_Fold_Auto_Close=1          " close folds for all other files in taglist
+    let g:Tlist_Sort_Type="name"                " default sort by name
+    let g:Tlist_Use_Horiz_Window=0              " don't use horizontal split
+    let g:Tlist_Use_Right_Window=0              " left vertical split
+    let g:Tlist_Compact_Format=0                " don't compact empty lines
+    let g:Tlist_Enable_Fold_Column=1            " show folds
+    let g:Tlist_Display_Prototype=0             " default to tags instead of prototypes
+    let g:Tlist_Display_Tag_Scope=1             " show scope with tag
+    "let g:Tlist_Ctags_Cmd="/usr/local/bin/ctags"
+
+    nmap <Leader>tt :TlistToggle<CR>
+
+    " Add all files with the same extension
+    nmap <Leader>at :TlistAddFilesRecursive<space>
+    ". *.=expand("%:e")
+    ":TlistShowTag                              " show tag under cursor
+    ":TlistShowPrototype                        " show prototype for tag under cursor
+    ":TlistSessionSave <file name>              " cache session
+    ":TlistSessionLoad <file name>              " load session
+
+    " Colors
+    " MyTagListTagName  - Used for tag names
+    " MyTagListTagScope - Used for tag scope
+    " MYTagListTitle    - Used for tag titles
+    " MyTagListComment  - Used for comments
+    " MyTagListFileName - Used for filenames
+    " e.g. :highlight MyTagListTagName guifg=blue ctermfg=blue
+"endif
+
+" Bubble lines (using unimpaired.vim)
+nmap <C-Up> [e
+nmap <C-Down> ]e
+vmap <C-Up> [egv
+vmap <C-Down> ]egv
+
+"if exists(":VimwikiIndex")
+    " ,ww -> open wiki
+    " 2,ww -> open secong wiki from g:vimwiki_list
+    " ,wt -> open in tab
+    " ,w,w _. open diary wiki for today
+    let g:vimwiki_list = [{'path': '~/Dropbox/wiki/vim/', 'path_html': '~/Dropbox/wiki/html/', 'auto_export': 1}]
+"endif
+
+"if exists(":ZoomWin")
+"   <C-w>o -> :ZoomWin
+"endif

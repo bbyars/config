@@ -1,20 +1,31 @@
 " Pieced together from various sources, including:
 " * vimcasts.org
-" * https://github.com/carlhuda/janus
 " * The O'Reilly book: http://oreilly.com/catalog/9780596529833
+" * https://github.com/carlhuda/janus
 " * http://colemak.com/pub/vim/colemak.vim
 " * https://github.com/isa/VimFiles
+" * http://spf13.com/post/perfect-vimrc-vim-config-file
 
-" For colemak keyboard layout; source .vimrc-qwerty to undo
-" Need to do this before loading gundo plugin
-source ~/.vimrc-colemak
+" Needs to be first line
+set nocompatible
+
+" On Windows, also use '.vim' instead of 'vimfiles'; this makes synchronization
+" across (heterogeneous) systems easier. 
+if has('win32') || has('win64')
+  set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
+  "let &runtimepath = substitute(&runtimepath,'\(Documents and Settings[\\/][^\\/]*\)[\\/]\zsvimfiles\>','.vim','g')
+endif
 
 " Add all vimscripts from the ~/.vim/bundle directory to the path
 silent! call pathogen#runtime_append_all_bundles()
 silent! call pathogen#helptags()
 
+" For colemak keyboard layout; source .vimrc-qwerty to undo
+" Need to do this before loading gundo plugin
+source ~/.vimrc-colemak
+
+set background=dark
 set encoding=utf-8
-set nocompatible                " make Vim behave in a more useful way
 set lazyredraw                  " don't redraw screen while executing macros/mappings
 set winaltkeys=no               " allow mapping of alt (meta) key shortcuts
 set mouse=a                     " allow mouse in terminal version
@@ -42,7 +53,7 @@ set backspace=indent,eol,start  " allow backspacing over everything in insert mo
 " Cursor Management
 set nostartofline               " keep cursor in the same column when moving lines if possible
 set scrolloff=1                 " minimal number of screen lines to keep above and below the cursor
-set cursorline                  " highlight current line
+"set cursorline                  " highlight current line
 
 " Searching
 set incsearch                   " enable incremental search
@@ -55,14 +66,13 @@ set gdefault                    " make global search/replace the default
 set virtualedit=block           " allow selecting a rectangle in visual mode
 
 " Display
-set ruler                       " show the cursor position all the time
 set showcmd                     " display incomplete commands
 set showtabline=2               " always show tab page labels
 set number                      " display line numbers
 set showmatch                   " match brackets
 
 " Saving & Backup
-"set hidden                      " you can change buffers without saving
+"set hidden                     " you can change buffers without saving
 set autowriteall                " auto-save when switching buffers or shelling command
 set directory=~/.vim/backup
 set backupdir=~/.vim/backup
@@ -71,19 +81,12 @@ set backupdir=~/.vim/backup
 set foldenable                  " allow folding in syntax foldmethod
 set foldcolumn=3                " show folding in margin
 
-" Remember more commands and search history
-set history=1000
+" Splitting
+set splitbelow                  " New window below current
+set splitright                  " New window to right of current
 
+set history=1000                " Remember more commands and search history
 set visualbell                  " Instead of beep
-
-" Without setting this, ZoomWin restores windows in a way that causes
-" equalalways behavior to be triggered the next time CommandT is used.
-" This is likely a bludgeon to solve some other issue, but it works
-set noequalalways
-
-" Turn off modelines (comments that set vim config in files you open)
-set nomodeline
-set modelines=0
 
 " MacVIM shift+arrow-keys behavior (required in .vimrc)
 let macvim_hig_shift_movement = 1
@@ -91,9 +94,15 @@ let macvim_hig_shift_movement = 1
 " Space for removing highlights
 nnoremap <silent> <Space> :silent noh<Bar>echo<cr>
 
+" Make Y behave like C and D
+nnoremap Y y$
+
 " Enable normal regex scheme, not the crazy vim scheme
 nnoremap / /\v
 vnoremap / /\v
+
+" Show current color scheme for each element
+nmap <leader>sc ::so $VIMRUNTIME/syntax/hitest.vim<CR>
 
 if has("autocmd")
     " Enable file type detection
@@ -110,11 +119,12 @@ if has("autocmd")
     autocmd BufWritePost vimrc source $MYVIMRC
     autocmd BufWritePost .vimrc-colemak source $MYVIMRC
     autocmd BufWritePost vimrc-colemak source $MYVIMRC
+    autocmd BufWritePost .vimrc-plugins source $MYVIMRC
+    autocmd BufWritePost vimrc-plugins source $MYVIMRC
 
     autocmd BufNewFile,BufRead *.as set filetype=actionscript
     autocmd BufNewFile,BufRead *.properties,*.targets,*.proj,*.build,*.csproj set filetype=xml
     autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru} set filetype=ruby
-    "autocmd BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn} call s:setupMarkup()
 
     " Syntax of these languages is fussy over tabs vs spaces
     autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
@@ -129,6 +139,8 @@ if has("autocmd")
     autocmd FileType ruby setlocal ts=2 sts=2 sw=2 expandtab
 
     autocmd BufRead,BufNewFile *.txt setlocal wrap linebreak nolist
+
+    autocmd FocusGained * if !has('win32') | silent! call fugitive#reload_status() | endif
 
     " git syntax
     autocmd BufNewFile,BufRead *.git/COMMIT_EDITMSG     setf gitcommit
@@ -185,12 +197,24 @@ if has("autocmd")
             autocmd! newFileDetection
         endif
     endfunction
+
+    autocmd BufWinLeave * silent! mkview    "make vim save view (state) (folds, cursor, etc)
+    autocmd BufWinEnter * silent! loadview  "make vim load view (state) (folds, cursor, etc)
+
+    " Auto detect shebangs and make script executable
+    autocmd BufNewFile  * let b:chmod_exe=1
+    autocmd BufWritePre * if exists("b:chmod_exe") |
+          \ unlet b:chmod_exe |
+          \ if getline(1) =~ '^#!' | let b:chmod_new="+x" | endif |
+          \ endif
+    autocmd BufWritePost,FileWritePost * if exists("b:chmod_new")|
+          \ silent! execute "!chmod ".b:chmod_new." <afile>"|
+          \ unlet b:chmod_new|
+          \ endif
 endif
 
 " &t_Co = number of colors
 if &t_Co > 2 || has("gui_running")
-    "colorscheme motus
-    "colorscheme jellybeans
     colorscheme darkZ
 
     " Enable syntax highlighting
@@ -199,9 +223,21 @@ if &t_Co > 2 || has("gui_running")
     " We need these commands to run after syntax highlighting
     highlight NonText guifg=#666666
     highlight SpecialKey guifg=#666666
+
+    if exists("&guifont")
+        if has("mac")
+            set guifont=Monaco:h12
+        elseif has("unix")
+            if &guifont == ""
+                set guifont=bitstream\ vera\ sans\ mono\ 11
+            endif
+        elseif has("win32")
+            set guifont=Consolas:h11,Courier\ New:h10
+        endif
+    endif
 endif
 
-if has("win32")
+if has("win32") || has("win64")
     source $VIMRUNTIME/mswin.vim
 endif
 
@@ -229,101 +265,19 @@ function! <SID>SynStack()
     echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
 
-""""""""""""""""""""""""
-" Plugin configuration
-"
-if exists(":Tabularize")
-    nmap <Leader>a= :Tabularize /=<CR>
-    vmap <Leader>a= :Tabularize /=<CR>
-    nmap <Leader>a: :Tabularize /:\zs<CR>
-    vmap <Leader>a: :Tabularize /:\zs<CR>
-    nmap <Leader>a<Space> :Tabularize / <CR>
-    vmap <Leader>a<Space> :Tabularize / <CR>
+" Status line
+set laststatus=2                            " Always show status line
+set statusline=%<%f\                        " Filename
+set statusline+=%w%h%m%r                    " Options (preview, help, modified, readonly)
+set statusline+=\ \ %{fugitive#statusline()} " Git branch
+set statusline+=\ \ [%{&ff}/%Y]             " file format / file type
+set statusline+=\ \ %{getcwd()}             " current dir
+set statusline+=%=                          " Right align remaining fields
+set statusline+=buffer:%n                   " Show buffer number
+set statusline+=\ \ col:%c/%v               " Show column/virtual column
+set statusline+=\ \ line:%l/%L\ \           " Show line/total lines
 
-    " to align on insert mode on pipe character, for writing cucumber-like tables
-    " (would be nice to have a command that triggers this on and off):
-    "inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
-    function! s:align()
-        let p = '^\s*|\s.*\s|\s*$'
-        if getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
-            let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
-            let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
-            Tabularize/|/l1
-            normal! 0
-            call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
-        endif
-    endfunction
-endif
+" TODO: Fix this, incorporate above
+set statusline=[%n]\ %<%.99f\ %h%w%m%r%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%y%{exists('*rails#statusline')?rails#statusline():''}%{exists('*fugitive#statusline')?fugitive#statusline():''}%#ErrorMsg#%{exists('*SyntasticStatuslineFlag')?SyntasticStatuslineFlag():''}%*%=%-16(\ %l,%c-%v\ %)%P
 
-nnoremap <D-u> :GundoToggle<CR>
-
-" NERDTree configuration
-let NERDTreeIgnore=['\.rbc$', '\~$']
-map <Leader>n :NERDTreeToggle<CR>
-
-" Command-T configuration
-let g:CommandTMaxHeight=20
-
-" ZoomWin configuration
-map <Leader><Leader> :ZoomWin<CR>
-
-" CTags
-map <Leader>rt :!ctags --extra=+f -R *<CR><CR>
-map <C-\> :tnext<CR>
-
-" Enable syntastic syntax checking
-let g:syntastic_enable_signs=1
-let g:syntastic_quiet_warnings=1
-
-" gist-vim defaults
-if has("mac")
-    let g:gist_clip_command = 'pbcopy'
-elseif has("unix")
-    let g:gist_clip_command = 'xclip -selection clipboard'
-endif
-let g:gist_detect_filetype = 1
-let g:gist_open_browser_after_post = 1
-
-" % to bounce from do to end etc.
-runtime! macros/matchit.vim
-
-" Bubble lines (using unimpaired.vim)
-nmap <C-Up> [e
-nmap <C-Down> ]e
-vmap <C-Up> [egv
-vmap <C-Down> ]egv
-
-" vimwiki
-let g:vimwiki_list = [{'path': '~/Dropbox/wiki/vim/', 'path_html': '~/Dropbox/wiki/html/', 'auto_export': 1}]
-
-" STATUS BAR
-function! GetCWD()
-    return expand(":pwd")
-endfunction
-
-function! IsHelp()
-    return &buftype=='help'?' (help) ':''
-endfunction
-
-function! GetName()
-    return expand("%:t")==''?'<none>':expand("%:t")
-endfunction
-
-set laststatus=2        " Always show status line
-set statusline=%3*[%1*%{GetName()}%3*]%3*
-set statusline+=%7*%{&modified?'\ (modified)':'\ '}%3*
-set statusline+=%5*%{IsHelp()}%3*
-set statusline+=%6*%{&readonly?'\ (read-only)\ ':'\ '}%3*
-set statusline+=%8*%{strlen(&fenc)?&fenc:'none'}%*      " encoding
-set statusline+=%-8*%{&ff}%*\ \                          " file format
-set statusline+=%4*%{strlen(&ft)?&ft:'<none>'}\ \       " file type
-set statusline+=%3*tab:%4*%{&ts}
-set statusline+=%3*,%4*%{&sts}
-set statusline+=%3*,%4*%{&sw}
-set statusline+=%3*,%4*%{&et?'et':'noet'}\ \ 
-set statusline+=%<%3*pwd:%4*%{getcwd()}\ \ 
-set statusline+=%=
-set statusline+=%3*buffer:%4*%n\ \ 
-set statusline+=%3*col:%4*%c/%v\ \ 
-set statusline+=%3*line:%4*%l/%L
-
+source ~/.vimrc-plugins

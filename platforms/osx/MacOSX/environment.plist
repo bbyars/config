@@ -1,0 +1,3 @@
+{
+	PATH = "/usr/local/bin:/opt/local/bin:~/scripts/$PATH";
+}

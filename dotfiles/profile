@@ -1,4 +1,4 @@
-export PATH=$PATH:/opt/local/bin:~/Scripts
+export PATH=/usr/local/bin:/opt/local/bin:~/scripts:$PATH
 export EDITOR=vi
 export MANPATH=$MANPATH:/opt/local/share/man
 export INFOPATH=$INFOPATH:/opt/local/share/info

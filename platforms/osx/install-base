@@ -15,3 +15,15 @@ scripts/osx/install-dmg.sh http://download.mozilla.org/?product=firefox-4.0&os=o
 echo
 echo "Installing Max"
 scripts/osx/install-tarball-app.sh http://files.sbooth.org/Max-0.9.1.tar.bz2
+
+echo
+echo "Installing exuberant-ctags"
+wget -O ctags.tar.gz --no-check-certificate http://prdownloads.sourceforge.net/ctags/ctags-5.8.tar.gz
+tar xzvf ctags.tar.gz
+cd ctags-5.8
+./configure
+make
+sudo make install
+cd ..
+rm -rf ctags
+rm -rf ctags.tar.gz

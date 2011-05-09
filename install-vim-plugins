@@ -21,9 +21,13 @@ cwd=$(pwd)
 
 function gitinstall() {
     repo=$(basename $1 .git | sed s/$STRIP_PATTERN//)
+    dir=$repo
+    if test $# -eq 2; then
+        dir=$2
+    fi
     echo "Installing $repo..."
     cd ~/.vim/bundle
-    git clone $1 $repo > /dev/null 2>&1
+    git clone $1 $dir > /dev/null 2>&1
 }
 
 function tarinstall() {
@@ -35,7 +39,7 @@ function tarinstall() {
 }
 
 function fileinstall() {
-    test -d ~/.vim/bundle/$2 || mkdir ~/.vim/bundle/$2
+    test -d ~/.vim/bundle/$2 || mkdir -p ~/.vim/bundle/$2
     cd ~/.vim/bundle/$2
     if test -z $3; then
         curl -O $1 2> /dev/null
@@ -90,20 +94,25 @@ mv vim-pathogen/* ~/.vim
 rm -rf vim-pathogen
 
 # Install base plugins
+gitinstall git://github.com/tpope/vim-abolish.git
 gitinstall git://github.com/mileszs/ack.vim.git
-gitinstall git://github.com/wincent/Command-T.git
 tarinstall http://conque.googlecode.com/files/conque_2.1.tar.gz
-fileinstall http://www.vim.org/scripts/download_script.php?src_id=12150 hexHighlight hexHighlight.vim
-gitinstall git://github.com/mattn/gist-vim.git
+gitinstall git://github.com/nelstrom/vim-easymotion.git
+fileinstall http://www.vim.org/scripts/download_script.php?src_id=12150 hexHighlight/plugin hexHighlight.vim
 gitinstall git://github.com/sjl/gundo.vim.git
 gitinstall git://github.com/hallettj/jslint.vim.git
 gitinstall git://github.com/vim-scripts/matchit.zip.git
 gitinstall git://github.com/ddollar/nerdcommenter.git
 gitinstall git://github.com/wycats/nerdtree.git
+fileinstall http://www.vim.org/scripts/download_script.php?src_id=2366 python-matchit/plugin python_match.vim
 gitinstall git://github.com/vim-scripts/repeat.vim.git
-gitinstall git://github.com/vim-scripts/ruby-matchit.git
+# Overwrites matchit
+#gitinstall git://github.com/vim-scripts/ruby-matchit.git
 gitinstall git://github.com/vim-scripts/searchfold.vim.git
+gitinstall git://github.com/ghewgill/vim-scmdiff.git scmdiff/plugins
+#gitinstall git://github.com/vim-scripts/ShowMarks.git
 gitinstall git://github.com/msanders/snipmate.vim.git
+gitinstall git://github.com/spf13/snipmate-snippets.git
 gitinstall git://github.com/ervandew/supertab.git
 gitinstall git://github.com/scrooloose/syntastic.git
 gitinstall git://github.com/godlygeek/tabular.git
@@ -147,13 +156,6 @@ if test -d /Applications/PeepOpen.app/Contents/Resources/Support/vim-peepopen; t
     echo "Installing peepopen..."
     cp -r /Applications/PeepOpen.app/Contents/Resources/Support/vim-peepopen ~/.vim/bundle
 fi
-
-# Command-T special commands
-cd ~/.vim/bundle/Command-T
-find ruby -name '.gitignore' | xargs rm
-cd ruby/command-t
-ruby extconf.rb > /dev/null
-make clean && make > /dev/null
 
 # Commit if we're told to
 if test ! -z $commit; then

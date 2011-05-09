@@ -1,0 +1,4 @@
+export PATH=/usr/local/bin:/opt/local/bin:~/scripts:$PATH
+export EDITOR=vim
+export MANPATH=$MANPATH:/opt/local/share/man
+export INFOPATH=$INFOPATH:/opt/local/share/info

@@ -1,9 +1,6 @@
 vim:
 * Better color scheme
 * Better feature detection (console, windows, mac, linux)
-* Understand some of the janus copies
 * Bug in git commit message - cursor doesn't start at beginning
 ** Could this be related to bit of vimscript to save cursor position?
-* colors:
-** Macvim - motus
-** Terminal - darkZ
+* Plugin configuration

@@ -13,10 +13,19 @@
 	renames = copies
 	mnemonicprefix = true
 [branch]
-	autosetupmerge = true
+	autosetupmerge = always
+    autosetuprebase = always
 [rerere]
 	enabled = true
 [push]
 	default = tracking
 [merge]
 	stat = true
+[diff "ruby"]
+	funcname = "^ *\\(\\(def\\) .*\\)"
+[diff "vim"]
+	funcname = "^ *\\(\\(fu\\|aug\\).*\\)"
+[alias]
+	one = show -s --pretty='format:%h (%s)'
+	recursive-update = "!sh -c 'find \"${@-.}\" -type d -name .git -exec dirname {} \\; -exec git --git-dir={} remote update \\;' recursive-update"
+	rlog = !sh -c 'git log --color \"$@\"|fmt -s -w 79|less -FRSX' git-rlog

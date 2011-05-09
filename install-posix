@@ -59,8 +59,9 @@ done
 
 # First backup
 backup ~/scripts
-#backup ~/git-completion.bash;
+backup ~/git-completion.bash;
 backup ~/.oh-my-zsh
+backup ~/.MacOSX
 
 for file in $(ls dotfiles); do
     backup ~/.$file
@@ -82,8 +83,12 @@ linkfiles scripts/$platform ~/scripts/
 chsh -s /bin/zsh
 git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 
-#wget -O ~/git-completion.bash --no-check-certificate https://github.com/git/git/raw/next/contrib/completion/git-completion.bash
+wget -O ~/git-completion.bash --no-check-certificate https://github.com/git/git/raw/next/contrib/completion/git-completion.bash
 
+# plist needed for Cocoa apps
+if test $platform = 'osx'; then
+    ln -s platforms/osx/MacOSX ~/.MacOSX
+fi
 if test ! -z $commit; then
     scripts/backup "$@"
 fi

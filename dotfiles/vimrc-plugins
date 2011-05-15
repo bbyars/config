@@ -173,7 +173,7 @@ endif
     let g:NERDTreeWinPos = 'left'             " Show on left
     let g:NERDTreeWinSize = 31                " Size of window
 
-    autocmd BufEnter * NERDTreeMirror         " Mirror to other tabs
+    autocmd BufEnter * silent! NERDTreeMirror " Mirror to other tabs
     autocmd FocusGained * call s:UpdateNERDTree()
     autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
 

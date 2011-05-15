@@ -7,6 +7,9 @@ plugins=(brew gem git osx ruby svn ssh-agent vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
+source ~/.nvm/nvm.sh
+nvm alias default v0.4.7
+
 alias ll="ls -Al"
 
 # Applications completion

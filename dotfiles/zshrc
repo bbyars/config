@@ -10,7 +10,14 @@ source $ZSH/oh-my-zsh.sh
 source ~/.nvm/nvm.sh
 nvm alias default v0.4.7
 
+source ~/.rvm/scripts/rvm
+rvm use 1.9.2
+
 alias ll="ls -Al"
+alias gs="git status"
+alias ga="git add"
+alias gc="git commit"
+alias gco="git checkout"
 
 # Applications completion
 if test "$(uname)" = "Darwin"; then

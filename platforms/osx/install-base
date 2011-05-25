@@ -27,3 +27,7 @@ sudo make install
 cd ..
 rm -rf ctags
 rm -rf ctags.tar.gz
+
+echo
+echo "Installing postgres"
+brew install postgres

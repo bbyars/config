@@ -18,6 +18,7 @@ alias gs="git status"
 alias ga="git add"
 alias gc="git commit"
 alias gco="git checkout"
+alias gp="git checkout master && git rebase develop && git push origin master && git checkout develop"
 
 # Applications completion
 if test "$(uname)" = "Darwin"; then

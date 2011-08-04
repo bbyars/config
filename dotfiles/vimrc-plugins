@@ -307,7 +307,7 @@ vmap <C-Down> ]egv
     " 2,ww -> open secong wiki from g:vimwiki_list
     " ,wt -> open in tab
     " ,w,w _. open diary wiki for today
-    let g:vimwiki_list = [{'path': '~/Dropbox/wiki/vim/', 'path_html': '~/Dropbox/wiki/html/', 'auto_export': 1}]
+    let g:vimwiki_list = [{'path': '~/Dropbox/wiki/vim/', 'path_html': '~/Dropbox/wiki/html/', 'auto_export': 0}]
 "endif
 
 "if exists(":ZoomWin")

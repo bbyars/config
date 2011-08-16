@@ -104,6 +104,9 @@ vnoremap / /\v
 " Show current color scheme for each element
 nmap <leader>sc ::so $VIMRUNTIME/syntax/hitest.vim<CR>
 
+" w!! to use sudo to save file opened without sudo
+cmap w!! %!sudo tee > /dev/null %
+
 if has("autocmd")
     " Enable file type detection
     filetype on
@@ -281,3 +284,10 @@ set statusline+=\ \ line:%l/%L\ \           " Show line/total lines
 set statusline=[%n]\ %<%.99f\ %h%w%m%r%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%y%{exists('*rails#statusline')?rails#statusline():''}%{exists('*fugitive#statusline')?fugitive#statusline():''}%#ErrorMsg#%{exists('*SyntasticStatuslineFlag')?SyntasticStatuslineFlag():''}%*%=%-16(\ %l,%c-%v\ %)%P
 
 source ~/.vimrc-plugins
+
+" Text objects refresher:
+" ci"    -> Cut everything inside quoted string and start insert mode
+" da[    -> Delete the [] region around your cursor
+" vi'    -> Visual select everything inside '' string
+" ya(    -> Yank all text from ( to )
+

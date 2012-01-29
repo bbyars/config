@@ -11,7 +11,7 @@ source ~/.nvm/nvm.sh
 nvm alias default v0.4.7
 
 source ~/.rvm/scripts/rvm
-rvm use 1.9.2
+rvm use 1.9.3
 
 alias ll="ls -Al"
 alias gs="git status"
@@ -20,9 +20,39 @@ alias gc="git commit"
 alias gco="git checkout"
 alias gp="git checkout master && git rebase develop && git push origin master && git checkout develop"
 
+alias ace="cd ~/Documents/ThoughtWorks/ATT/ace"
+
 # Applications completion
 if test "$(uname)" = "Darwin"; then
    compctl -f -x 'p[2]' -s "`/bin/ls -d1 /Applications/*/*.app /Applications/*.app | sed 's|^.*/\([^/]*\)\.app.*|\\1|;s/ /\\\\ /g'`" -- open
    alias run='open -a'
 fi
+
+# stderrred: https://github.com/sickill/stderred
+# This seems to hang MacVim - investigate?
+#export DYLD_INSERT_LIBRARIES=/Users/bbyars/src/stderred/lib/stderred.dylib DYLD_FORCE_FLAT_NAMESPACE=1
+
+export PATH=$PATH:/usr/local/sbin
+
+# http://weblog.rubyonrails.org/2006/3/9/fast-rake-task-completion-for-zsh
+_rake_does_task_list_need_generating () {
+  if [ ! -f .rake_tasks ]; then return 0;
+  else
+    accurate=$(stat -f%m .rake_tasks)
+    changed=$(stat -f%m Rakefile)
+    return $(expr $accurate '>=' $changed)
+  fi
+}
+
+_rake () {
+  if [ -f Rakefile ]; then
+    if _rake_does_task_list_need_generating; then
+      echo "\nGenerating .rake_tasks..." > /dev/stderr
+      rake --silent --tasks | cut -d " " -f 2 > .rake_tasks
+    fi
+    compadd `cat .rake_tasks`
+  fi
+}
+
+compdef _rake rake
 

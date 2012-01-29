@@ -107,6 +107,7 @@ gitinstall git://github.com/wycats/nerdtree.git
 fileinstall http://www.vim.org/scripts/download_script.php?src_id=2366 python-matchit/plugin python_match.vim
 gitinstall git://github.com/vim-scripts/repeat.vim.git
 # Overwrites matchit
+gitinstall git://github.com/airblade/vim-rooter
 #gitinstall git://github.com/vim-scripts/ruby-matchit.git
 gitinstall git://github.com/vim-scripts/searchfold.vim.git
 gitinstall git://github.com/ghewgill/vim-scmdiff.git scmdiff/plugins

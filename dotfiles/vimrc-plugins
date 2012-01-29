@@ -164,7 +164,7 @@ endif
     let g:NERDTreeHighlightCursorline = 1     " highlight cursor line
     let g:NERDTreeHijackNetrw = 0             " Allow :edit <dirname> with netrw
     let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.svn$']
-    let g:NERDTreeQuitOnOpen = 0              " Don't close when opening file
+    let g:NERDTreeQuitOnOpen = 1              " Close when opening file
     let g:NERDTreeShowBookmarks = 0           " Don't show bookmarks
     let g:NERDTreeShowFiles = 1               " Show files and directories
     let g:NERDTreeShowHidden = 0              " Don't show hidden files
@@ -173,38 +173,6 @@ endif
     let g:NERDTreeWinPos = 'left'             " Show on left
     let g:NERDTreeWinSize = 31                " Size of window
 
-    autocmd BufEnter * silent! NERDTreeMirror " Mirror to other tabs
-    autocmd FocusGained * call s:UpdateNERDTree()
-    autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
-
-    function! s:CloseIfOnlyNerdTreeLeft()
-        if exists("t:NERDTreeBufName")
-            if bufwinnr(t:NERDTreeBufName) != -1
-                if winnr("$") == 1
-                    q
-                endif
-            endif
-        endif
-    endfunction
-
-    function! s:UpdateNERDTree(...)
-        let stay = 0
-
-        if(exists("a:1"))
-            let stay = a:1
-        end
-
-        if exists("t:NERDTreeBufName")
-            let nr = bufwinnr(t:NERDTreeBufName)
-            if nr != -1
-                exe nr . "wincmd w"
-                exe substitute(mapcheck("R"), "<CR>", "", "")
-                if !stay
-                    wincmd p
-                end
-            endif
-        endif
-    endfunction
 "endif
 
 " SearchFold

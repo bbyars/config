@@ -1,5 +1,3 @@
-curl -s https://rvm.beginrescueend.com/install/rvm | bash
-
 sudo gem install interactive_editor
 sudo gem install rails
 sudo gem install rspec
@@ -9,3 +7,7 @@ sudo gem install plist
 sudo gem install pry
 sudo gem install pry-doc
 sudo gem install rubygems-test
+sudo gem install metrical
+
+gem sources -a http://gems.github.com
+sudo gem install adamcooke-key-installer

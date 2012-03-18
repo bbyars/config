@@ -2,3 +2,5 @@ export PATH=/usr/local/bin:/opt/local/bin:~/scripts:$PATH
 export EDITOR=vim
 export MANPATH=$MANPATH:/opt/local/share/man
 export INFOPATH=$INFOPATH:/opt/local/share/info
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

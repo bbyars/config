@@ -1,0 +1,61 @@
+alias ll="ls -Al"
+alias tu='top -o cpu'
+alias tm='top -o vsize'
+
+alias gs="git status"
+alias ga="git add"
+alias gaa="git add --all"
+alias gc="git commit"
+alias gco="git checkout"
+gd() { git diff $* | view -; }
+gdc() { gd --cached $*; }
+
+alias rs="rails server"
+alias rc="rails console"
+
+alias ace="cd ~/Documents/ThoughtWorks/ATT/ace"
+
+if [ $(uname) = 'Darwin' ]; then
+    alias o='open . &'
+    alias ff='open -a Firefox'
+fi
+
+function take() {
+    mkdir $1
+    cd $1
+}
+
+# setup a tracking branch from [remote] [branch-name]
+function gbt() {  #gbt origin feature
+    git branch --track $2 $1/$2
+    git checkout $2
+}
+
+# from https://github.com/garybernhardt/dotfiles/blob/master/.bashrc
+function minutes_since_last_commit {
+    now=`date +%s`
+    last_commit=`git log --pretty=format:'%at' -1`
+    seconds_since_last_commit=$((now-last_commit))
+    minutes_since_last_commit=$((seconds_since_last_commit/60))
+    echo $minutes_since_last_commit
+}
+
+git_prompt() {
+    local g="$(__gitdir)"
+    if [ -n "$g" ]; then
+        local MINUTES_SINCE_LAST_COMMIT=`minutes_since_last_commit`
+        if [ "$MINUTES_SINCE_LAST_COMMIT" -gt 30 ]; then
+            local COLOR=${RED}
+        elif [ "$MINUTES_SINCE_LAST_COMMIT" -gt 10 ]; then
+            local COLOR=${YELLOW}
+        else
+            local COLOR=${GREEN}
+        fi
+        local SINCE_LAST_COMMIT="${COLOR}$(minutes_since_last_commit)m${NORMAL}"
+        # The __git_ps1 function inserts the current git branch where %s is
+        local GIT_PROMPT=`__git_ps1 "(%s|${SINCE_LAST_COMMIT})"`
+        echo ${GIT_PROMPT}
+    fi
+}
+#PS1="\h:\W\$(git_prompt) \u\$ "
+alias rbgrep="grep --include='*.rb' $*"

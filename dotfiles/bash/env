@@ -1,0 +1,14 @@
+export PATH=$PATH:/usr/local/sbin
+export EDITOR=vim
+export HISTCONTROL=ignoredups
+export CDPATH=.:~/Documents/ThoughtWorks/ATT/:~/src
+
+if [ -e ~/.nvm ]; then
+    source ~/.nvm/nvm.sh
+    nvm alias default v0.6.12
+fi
+
+if [ -e ~/.rvm ]; then
+    source ~/.rvm/scripts/rvm
+    rvm use 1.9.3-p0
+fi

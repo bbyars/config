@@ -6,66 +6,32 @@
 # as the contents of the ~/scripts directory, will be removed.
 # This is intentional - it forces me to maintain everything here rather
 # than separately on each machine I work on.
-# Before removing anything, this script will backup existing files in
-# BACKUP_DIR (defaults to ~/.backup.)
-# The backup directory is a git repository managed by scripts/backup.
-# This script will pass any command line arguments to scripts/backup,
-# giving you control over whether to commit the changes or not
-# If you do commit (with either a -c or -m argument), only one commit
-# will be made for all changes.
+
+#set -e
 
 function linkfiles() {
     sourcedir=$1
     destprefix=$2
 
     for file in $(ls $sourcedir); do
-        if test -f $sourcedir/$file; then
-            ln -s $(pwd)/$sourcedir/$file ${destprefix}${file}
-        fi
+echo "Linking $file"
+        ln -s $(pwd)/$sourcedir/$file ${destprefix}${file}
     done
 }
 
-function backup() {
-    file=$1
-
-    if test -e $file -o -L $file; then
-        scripts/backup $file
-        rm -rf $file
-    fi
+function remove() {
+echo "Removing $1"
+    test -e $1 && rm -rf $1
 }
 
-# Figure out arguments to pass scripts/backup.  We can't simply pass "$@"
-# because, if we commit, we only do it once at the end, but we need the
-# -d option for all individual backup calls.
-while getopts ":cd:m:" option; do
-    case $option in
-        d)
-            # Same as setting -d on command line
-            export BACKUP_DIR=$OPTARG
-            ;;
-        c)
-            commit=1
-            ;;
-        m)
-            commit=1
-            ;;
-        *)
-            echo Invalid command line arguments, which get used for backup
-            echo "Try 'scripts/backup -h' for more info"
-            exit 1
-            ;;
-    esac
-done
-
-# First backup
-backup ~/scripts
-backup ~/git-completion.bash;
-backup ~/.oh-my-zsh
-backup ~/.MacOSX
-backup ~/.nvm
+# First remove
+remove ~/scripts
+remove ~/git-completion.bash
+remove ~/.oh-my-zsh
+remove ~/.nvm
 
 for file in $(ls dotfiles); do
-    backup ~/.$file
+    remove ~/.$file
 done
 
 platform=none
@@ -86,12 +52,7 @@ git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 
 wget -O ~/git-completion.bash --no-check-certificate https://github.com/git/git/raw/next/contrib/completion/git-completion.bash
 
+# Used in bash profile
 git clone git://github.com/creationix/nvm.git ~/.nvm
+bash -s stable < <(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer)
 
-# plist needed for Cocoa apps
-if test $platform = 'osx'; then
-    ln -s platforms/osx/MacOSX ~/.MacOSX
-fi
-if test ! -z $commit; then
-    scripts/backup "$@"
-fi

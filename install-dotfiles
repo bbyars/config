@@ -1,0 +1,43 @@
+#!/bin/bash
+#
+# Symlinks configuration files to this directory, and shell scripts to ~/scripts.
+# This script is idempotent, and ensures that existing dotfiles, as well
+# as the contents of the ~/scripts directory, will be removed.
+# This is intentional - it forces me to maintain everything here rather
+# than separately on each machine I work on.
+
+#set -e
+
+function linkfiles() {
+    sourcedir=$1
+    destprefix=$2
+
+    for file in $(ls $sourcedir); do
+        echo "Linking $file"
+        ln -s $(pwd)/$sourcedir/$file ${destprefix}${file}
+    done
+}
+
+function remove() {
+echo "Removing $1"
+    test -e $1 && rm -rf $1
+}
+
+# First remove
+remove ~/scripts
+
+for file in $(ls dotfiles); do
+    remove ~/.$file
+done
+
+platform=none
+if test $(uname) = 'Darwin'; then
+    platform=osx
+elif test $(uname) = 'Linux'; then
+    platform=linux
+fi
+
+mkdir ~/scripts
+linkfiles dotfiles          ~/.
+linkfiles scripts           ~/scripts/
+linkfiles scripts/$platform ~/scripts/

@@ -5,6 +5,10 @@ noremap h h
 noremap j j
 noremap k k
 
+" Improve up/down navigation on wrapped lines
+nnoremap j gj
+nnoremap k gk
+
 " Turbo navigation mode
 " Modified to work with counts, see :help complex-repeat
 nnoremap <silent> J @='5j'<CR>|xnoremap <silent> N @='5j'<CR>|onoremap J 5j|
@@ -36,6 +40,12 @@ noremap <C-w><C-k> <C-w><C-k>
 noremap <C-W><C-K> <C-W><C-K>
 noremap <C-w><C-j> <C-w><C-j>
 noremap <C-W><C-J> <C-W><C-J>
+
+" Easy window navigaation
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 " Reset horizontal scroll options
 noremap zh zh

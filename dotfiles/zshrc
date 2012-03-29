@@ -8,6 +8,9 @@ plugins=(bundler brew gem git osx ruby svn ssh-agent vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
+# Give me my bash style incremental search
+bindkey '^R' history-incremental-search-backward
+
 # Applications completion
 if test "$(uname)" = "Darwin"; then
    compctl -f -x 'p[2]' -s "`/bin/ls -d1 /Applications/*/*.app /Applications/*.app | sed 's|^.*/\([^/]*\)\.app.*|\\1|;s/ /\\\\ /g'`" -- open

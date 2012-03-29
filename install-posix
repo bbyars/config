@@ -9,42 +9,14 @@
 
 #set -e
 
-function linkfiles() {
-    sourcedir=$1
-    destprefix=$2
-
-    for file in $(ls $sourcedir); do
-echo "Linking $file"
-        ln -s $(pwd)/$sourcedir/$file ${destprefix}${file}
-    done
-}
-
 function remove() {
 echo "Removing $1"
     test -e $1 && rm -rf $1
 }
 
-# First remove
-remove ~/scripts
 remove ~/git-completion.bash
 remove ~/.oh-my-zsh
 remove ~/.nvm
-
-for file in $(ls dotfiles); do
-    remove ~/.$file
-done
-
-platform=none
-if test $(uname) = 'Darwin'; then
-    platform=osx
-elif test $(uname) = 'Linux'; then
-    platform=linux
-fi
-
-mkdir ~/scripts
-linkfiles dotfiles          ~/.
-linkfiles scripts           ~/scripts/
-linkfiles scripts/$platform ~/scripts/
 
 # Change to zsh and use oh-my-zsh
 chsh -s /bin/zsh

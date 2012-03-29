@@ -14,6 +14,10 @@ noremap h k
 noremap k j
 noremap j h
 
+" Improve up/down navigation on wrapped lines
+nnoremap j gh
+nnoremap k gj
+
 " Use the command key with navigation keys to move through displayed lines
 " The default navigation is only for numbered lines, which can be disorienting with line wrapping
 vmap <D-j> gh
@@ -34,6 +38,12 @@ noremap <C-w>k <C-w>j
 noremap <C-W>K <C-W>J
 noremap <C-w>j <C-w>h
 noremap <C-W>J <C-W>H
+
+" Easy window navigation
+nnoremap <C-k> <C-w>h
+nnoremap <C-h> <C-w>j
+nnoremap <C-j> <C-w>k
+nnoremap <C-l> <C-w>l
 
 " Remap horizontal scroll options
 noremap zh zj

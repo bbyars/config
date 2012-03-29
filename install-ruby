@@ -8,6 +8,7 @@ sudo gem install pry
 sudo gem install pry-doc
 sudo gem install rubygems-test
 sudo gem install metrical
+sudo gem install awesome_print
 
 gem sources -a http://gems.github.com
 sudo gem install adamcooke-key-installer

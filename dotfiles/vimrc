@@ -5,6 +5,7 @@
 " * http://colemak.com/pub/vim/colemak.vim
 " * https://github.com/isa/VimFiles
 " * http://spf13.com/post/perfect-vimrc-vim-config-file
+" http://vimbits.com/bits?sort=top
 
 " Needs to be first line
 set nocompatible
@@ -100,6 +101,10 @@ nnoremap Y y$
 " Enable normal regex scheme, not the crazy vim scheme
 nnoremap / /\v
 vnoremap / /\v
+
+" Reselect visual block after indent/outdent
+vnoremap < <gv
+vnoremap > >gv
 
 " Show current color scheme for each element
 nmap <leader>sc ::so $VIMRUNTIME/syntax/hitest.vim<CR>

@@ -13,7 +13,7 @@ gdc() { gd --cached $*; }
 alias rs="rails server"
 alias rc="rails console"
 
-alias ace="cd ~/Documents/ThoughtWorks/ATT/ace"
+alias ace="cd ~/Documents/ThoughtWorks/Projects/ATT/ace"
 
 if [ $(uname) = 'Darwin' ]; then
     alias o='open . &'

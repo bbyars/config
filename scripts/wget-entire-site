@@ -1,1 +1,0 @@
-wget --recursive --page-requisites --convert-links $1

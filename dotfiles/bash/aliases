@@ -1,19 +1,15 @@
-alias ll="ls -Al"
+alias remap="hidutil property --set '{\"UserKeyMapping\":[{\"HIDKeyboardModifierMappingSrc\":0x700000039,\"HIDKeyboardModifierMappingDst\":0x70000002A}]}'"
+remap
+
+alias safe='[ -f /etc/hosts ] && sudo rm /etc/hosts; sudo cp /Users/bbyars/hosts /etc/hosts'
+alias unsafe='[ -f /etc/hosts ] && sudo rm /etc/hosts'
+alias vpnc='sudo /usr/local/sbin/vpnc'
+alias discon='sudo /usr/local/sbin/vpnc-disconnect'
+alias chromeXOM='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --ignore-certificate-errors &> /dev/null &'
+
+alias ll="ls -al"
 alias tu='top -o cpu'
 alias tm='top -o vsize'
-
-alias gs="git status"
-alias ga="git add"
-alias gaa="git add --all"
-alias gc="git commit"
-alias gco="git checkout"
-gd() { git diff $* | view -; }
-gdc() { gd --cached $*; }
-
-alias rs="rails server"
-alias rc="rails console"
-
-alias ace="cd ~/Documents/ThoughtWorks/Projects/ATT/ace"
 
 if [ $(uname) = 'Darwin' ]; then
     alias o='open . &'
@@ -25,10 +21,8 @@ function take() {
     cd $1
 }
 
-# setup a tracking branch from [remote] [branch-name]
-function gbt() {  #gbt origin feature
-    git branch --track $2 $1/$2
-    git checkout $2
+function gitshow() {
+    git show $1 -- . ':(exclude)package-lock.json'
 }
 
 # from https://github.com/garybernhardt/dotfiles/blob/master/.bashrc
